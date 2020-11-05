@@ -1,6 +1,6 @@
 ﻿using System;
 using UnityEngine;
-
+using UnityStandardAssets.CrossPlatformInput;
 public class PlayerInputs : MonoBehaviour
 {
     private float VerticalInput;
@@ -13,7 +13,7 @@ public class PlayerInputs : MonoBehaviour
     
     void FixedUpdate()
     {
-        VerticalInput = Input.GetAxis("Vertical");//joystick.Vertical;
+        VerticalInput = CrossPlatformInputManager.GetAxis("Vertical");//Input.GetAxis("Vertical");//joystick.Vertical;
         HorizontalInput = Input.acceleration.x*accelerometerSensitivity;//joystick.Horizontal;//Input.GetAxis("Horizontal");
         //Debug.Log(HorizontalInput);
         
