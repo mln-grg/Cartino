@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class PlayerController : MonoSingletonGeneric<PlayerController>
+public class PlayerController : MonoBehaviour
 {
     private PlayerInputs playerInputs;
     [SerializeField]private Rigidbody rb;

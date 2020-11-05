@@ -9,13 +9,13 @@ public class PlayerInputs : MonoBehaviour
     private float HorizontalInput;
     public float horizontalinput { get { return HorizontalInput; } }
     
-    private bool isBreaking;
-    public bool isbreaking { get { return isBreaking; } }
+    [SerializeField] private float accelerometerSensitivity;
     
     void FixedUpdate()
     {
-        VerticalInput = Input.GetAxis("Vertical");
-        HorizontalInput = Input.GetAxis("Horizontal");
-        isBreaking = Input.GetKey(KeyCode.Space);
+        VerticalInput = Input.GetAxis("Vertical");//joystick.Vertical;
+        HorizontalInput = Input.acceleration.x*accelerometerSensitivity;//joystick.Horizontal;//Input.GetAxis("Horizontal");
+        //Debug.Log(HorizontalInput);
+        
     }
 }
