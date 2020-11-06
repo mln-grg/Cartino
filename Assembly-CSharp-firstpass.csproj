@@ -9,10 +9,10 @@
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <RootNamespace></RootNamespace>
-    <ProjectGuid>{09957AAA-94D0-F134-C4E2-F9F6E5C977C8}</ProjectGuid>
+    <ProjectGuid>{641F74C4-20C1-1CC2-78D2-221778BC437C}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <AssemblyName>Assembly-CSharp</AssemblyName>
+    <AssemblyName>Assembly-CSharp-firstpass</AssemblyName>
     <TargetFrameworkVersion>v4.7.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <BaseDirectory>.</BaseDirectory>
@@ -47,7 +47,7 @@
   <PropertyGroup>
     <ProjectTypeGuids>{E097FAD1-6243-4DAD-9C02-E9B9EFC3FFC1};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <UnityProjectGenerator>Unity/VSTU</UnityProjectGenerator>
-    <UnityProjectType>Game:1</UnityProjectType>
+    <UnityProjectType>GamePlugins:3</UnityProjectType>
     <UnityBuildTarget>Android:13</UnityBuildTarget>
     <UnityVersion>2019.4.12f1</UnityVersion>
   </PropertyGroup>
@@ -63,10 +63,42 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Scripts\CameraController.cs" />
-    <Compile Include="Assets\Scripts\MonoSingletonGeneric.cs" />
-    <Compile Include="Assets\Scripts\PlayerController.cs" />
-    <Compile Include="Assets\Scripts\PlayerInputs.cs" />
+    <Compile Include="Assets\Plugins\SimpleInput\Example\ExamplePlayerController.cs" />
+    <Compile Include="Assets\Plugins\SimpleInput\Scripts\AxisInputs\AxisInputKeyboard.cs" />
+    <Compile Include="Assets\Plugins\SimpleInput\Scripts\AxisInputs\AxisInputMouse.cs" />
+    <Compile Include="Assets\Plugins\SimpleInput\Scripts\AxisInputs\AxisInputMoveGesture.cs" />
+    <Compile Include="Assets\Plugins\SimpleInput\Scripts\AxisInputs\AxisInputPinchGesture.cs" />
+    <Compile Include="Assets\Plugins\SimpleInput\Scripts\AxisInputs\AxisInputRotateGesture.cs" />
+    <Compile Include="Assets\Plugins\SimpleInput\Scripts\AxisInputs\AxisInputSwipeGesture.cs" />
+    <Compile Include="Assets\Plugins\SimpleInput\Scripts\AxisInputs\AxisInputUI.cs" />
+    <Compile Include="Assets\Plugins\SimpleInput\Scripts\AxisInputs\AxisInputUIArrows.cs" />
+    <Compile Include="Assets\Plugins\SimpleInput\Scripts\AxisInputs\Dpad.cs" />
+    <Compile Include="Assets\Plugins\SimpleInput\Scripts\AxisInputs\Joystick.cs" />
+    <Compile Include="Assets\Plugins\SimpleInput\Scripts\AxisInputs\SteeringWheel.cs" />
+    <Compile Include="Assets\Plugins\SimpleInput\Scripts\AxisInputs\Touchpad.cs" />
+    <Compile Include="Assets\Plugins\SimpleInput\Scripts\ButtonInputs\ButtonInputKeyboard.cs" />
+    <Compile Include="Assets\Plugins\SimpleInput\Scripts\ButtonInputs\ButtonInputSwipeGesture.cs" />
+    <Compile Include="Assets\Plugins\SimpleInput\Scripts\ButtonInputs\ButtonInputUI.cs" />
+    <Compile Include="Assets\Plugins\SimpleInput\Scripts\Core\BaseInput.cs" />
+    <Compile Include="Assets\Plugins\SimpleInput\Scripts\Core\ISimpleInputDraggable.cs" />
+    <Compile Include="Assets\Plugins\SimpleInput\Scripts\Core\ISimpleInputDraggableMultiTouch.cs" />
+    <Compile Include="Assets\Plugins\SimpleInput\Scripts\Core\NonDrawingGraphic.cs" />
+    <Compile Include="Assets\Plugins\SimpleInput\Scripts\Core\SelectivePointerInput.cs" />
+    <Compile Include="Assets\Plugins\SimpleInput\Scripts\Core\SimpleInputDragListener.cs" />
+    <Compile Include="Assets\Plugins\SimpleInput\Scripts\Core\SimpleInputMultiDragListener.cs" />
+    <Compile Include="Assets\Plugins\SimpleInput\Scripts\Core\SimpleInputUtils.cs" />
+    <Compile Include="Assets\Plugins\SimpleInput\Scripts\Core\SwipeGestureBase.cs" />
+    <Compile Include="Assets\Plugins\SimpleInput\Scripts\Core\UnityInputProvider.cs" />
+    <Compile Include="Assets\Plugins\SimpleInput\Scripts\KeyInputs\KeyInputKeyboard.cs" />
+    <Compile Include="Assets\Plugins\SimpleInput\Scripts\KeyInputs\KeyInputSwipeGesture.cs" />
+    <Compile Include="Assets\Plugins\SimpleInput\Scripts\KeyInputs\KeyInputUI.cs" />
+    <Compile Include="Assets\Plugins\SimpleInput\Scripts\MouseButtonInputs\MouseButtonInputKeyboard.cs" />
+    <Compile Include="Assets\Plugins\SimpleInput\Scripts\MouseButtonInputs\MouseButtonInputSwipeGesture.cs" />
+    <Compile Include="Assets\Plugins\SimpleInput\Scripts\MouseButtonInputs\MouseButtonInputUI.cs" />
+    <Compile Include="Assets\Plugins\SimpleInput\Scripts\SimpleInput.cs" />
+    <Compile Include="Assets\Plugins\SimpleInput\Scripts\SimpleInputHelper.cs" />
+    <None Include="Assets\Plugins\SimpleInput\Credits.txt" />
+    <None Include="Assets\Plugins\SimpleInput\README.txt" />
     <Reference Include="UnityEngine">
       <HintPath>E:/EverythingUnity/Unity Stuffs/Unity 2019 (LTS)/2019.4.12f1/Editor/Data/Managed/UnityEngine/UnityEngine.dll</HintPath>
     </Reference>
@@ -243,9 +275,6 @@
     </Reference>
     <Reference Include="UnityEditor">
       <HintPath>E:/EverythingUnity/Unity Stuffs/Unity 2019 (LTS)/2019.4.12f1/Editor/Data/Managed/UnityEditor.dll</HintPath>
-    </Reference>
-    <Reference Include="Assembly-CSharp-firstpass">
-      <HintPath>E:/EverythingUnity/Unity Stuffs/PakoWithGuns/Library/ScriptAssemblies/Assembly-CSharp-firstpass.dll</HintPath>
     </Reference>
     <Reference Include="netstandard">
       <HintPath>E:/EverythingUnity/Unity Stuffs/Unity 2019 (LTS)/2019.4.12f1/Editor/Data/NetStandard/ref/2.0.0/netstandard.dll</HintPath>
