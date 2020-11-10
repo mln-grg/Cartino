@@ -14,8 +14,8 @@ public class PlayerInputs : MonoBehaviour
     void FixedUpdate()
     {
         VerticalInput = CrossPlatformInputManager.GetAxis("Vertical");//Input.GetAxis("Vertical");//joystick.Vertical;
-        HorizontalInput = Input.acceleration.x*accelerometerSensitivity;//joystick.Horizontal;//Input.GetAxis("Horizontal");
-        //Debug.Log(HorizontalInput);
-        
+        HorizontalInput = Input.GetAxis("Horizontal");//Input.acceleration.x * accelerometerSensitivity; //joystick.Horizontal;
+                                                      //Debug.Log(HorizontalInput);
+
     }
 }

@@ -11,7 +11,6 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float maxTurn = 25f;
     [SerializeField] Transform leftFrontWheel;
     [SerializeField] Transform rightFrontWheel;
-   
 
     private float turnInput,speedInput;
 
