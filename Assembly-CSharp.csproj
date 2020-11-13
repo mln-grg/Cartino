@@ -91,6 +91,7 @@
     <Compile Include="Assets\Scripts\VehicleModel.cs" />
     <Compile Include="Assets\Scripts\VehicleService.cs" />
     <Compile Include="Assets\Scripts\VehicleView.cs" />
+    <Compile Include="Assets\Scripts\test.cs" />
     <Compile Include="Assets\_Completed-Assets\Scripts\UI\UIDirectionControl.cs" />
     <None Include="Assets\FX\WarFX\Shaders\WFX_S Multiply Soft.shader" />
     <None Include="Assets\FX\WarFX\Shaders\WFX_S Multiply Soft Scroll.shader" />
