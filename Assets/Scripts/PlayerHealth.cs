@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
 public class PlayerHealth : MonoBehaviour
@@ -12,7 +11,7 @@ public class PlayerHealth : MonoBehaviour
     [SerializeField] GameObject explosionPrefab;
 
     private ParticleSystem explosionParticles;
-    private float currentHealth;
+    [SerializeField]private float currentHealth;
     public float CurrentHealth { get { return currentHealth; } }
     private bool isDead;
 
@@ -36,8 +35,7 @@ public class PlayerHealth : MonoBehaviour
         SetHealthUI();
         if(currentHealth<=0f && !isDead)
         {
-            //OnDeath();
-            StartCoroutine(OnDeath());
+            OnDeath();
         }
     }
     private void Update()
@@ -49,12 +47,10 @@ public class PlayerHealth : MonoBehaviour
         slider.value = currentHealth;
         fillImage.color = Color.Lerp(zeroHealthColor, fullHealthColor, (currentHealth/health));
     }
-    private IEnumerator OnDeath()
+    private void OnDeath()
     {
         isDead = true;
         explosionParticles.transform.position = transform.position;
         explosionParticles.gameObject.SetActive(true);
-        yield return  new WaitForSeconds(5f);
-        Destroy(gameObject);
     }
 }

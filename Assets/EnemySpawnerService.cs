@@ -7,7 +7,7 @@ public class EnemySpawnerService : MonoSingletonGeneric<EnemySpawnerService>
     [SerializeField] private Transform[] spawnPoints;
     [SerializeField]private Vehicles[] enemies;
     private float playerHealth;
-    
+
     private void Start()
     {
         GetInstance();
