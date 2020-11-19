@@ -3,7 +3,7 @@
 public class EnemySpawnerService : MonoSingletonGeneric<EnemySpawnerService>
 {
     [SerializeField] private PlayerHealth pc;
-    [SerializeField] private float spawnTime = 3f;
+    [SerializeField] private float spawnTime = 30f;
     [SerializeField] private Transform[] spawnPoints;
     [SerializeField]private Vehicles[] enemies;
     private float playerHealth;
@@ -29,4 +29,5 @@ public class EnemySpawnerService : MonoSingletonGeneric<EnemySpawnerService>
             Instantiate(enemies[enemiesIndex].CarPrefab, pos, spawnPoints[spawnPointsIndex].rotation);
         }
     }
+   
 }

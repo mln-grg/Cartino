@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4342619021157904}
   - component: {fileID: 33984331009141778}
   - component: {fileID: 23988263230915420}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Gas_balloon_v1 (5)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -90,7 +90,7 @@ GameObject:
   - component: {fileID: 4774984954731326}
   - component: {fileID: 33116529983188464}
   - component: {fileID: 23722312287893816}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Winch_v1 (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -170,7 +170,10 @@ GameObject:
   - component: {fileID: 33212865068562808}
   - component: {fileID: 23404389660323874}
   - component: {fileID: 4780424756149767656}
-  m_Layer: 0
+  - component: {fileID: 732727411}
+  - component: {fileID: 732727413}
+  - component: {fileID: 732727412}
+  m_Layer: 11
   m_Name: Buggy_v1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -184,7 +187,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1217994249952064}
-  m_LocalRotation: {x: 0.00000002676765, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -199,6 +202,7 @@ Transform:
   - {fileID: 4574993010000584}
   - {fileID: 4877150455058256}
   - {fileID: 2877092386295183483}
+  - {fileID: 2130055833932988917}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -262,6 +266,57 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemy: {fileID: 11400000, guid: 1d5fd875dae439c49a8d404f7bada625, type: 2}
+--- !u!54 &732727411
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1217994249952064}
+  serializedVersion: 2
+  m_Mass: 500
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!195 &732727413
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1217994249952064}
+  m_Enabled: 1
+  m_AgentTypeID: 0
+  m_Radius: 1
+  m_Speed: 18
+  m_Acceleration: 25
+  avoidancePriority: 50
+  m_AngularSpeed: 540
+  m_StoppingDistance: 1
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 0
+  m_AutoRepath: 1
+  m_Height: 1.9358364
+  m_BaseOffset: 1
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 0
+--- !u!65 &732727412
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1217994249952064}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 2.807909, y: 1.7313814, z: 4.4756374}
+  m_Center: {x: -0.000000059604645, y: 0, z: 0}
 --- !u!1 &1234080632940972
 GameObject:
   m_ObjectHideFlags: 0
@@ -273,7 +328,7 @@ GameObject:
   - component: {fileID: 4889770868823648}
   - component: {fileID: 33216374149453982}
   - component: {fileID: 23159184367901300}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Tire_v4_L
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -352,7 +407,7 @@ GameObject:
   - component: {fileID: 4574993010000584}
   - component: {fileID: 33978460779261206}
   - component: {fileID: 23103988694505954}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Tire_v4_R
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -431,7 +486,7 @@ GameObject:
   - component: {fileID: 4877150455058256}
   - component: {fileID: 33000284900784778}
   - component: {fileID: 23250604638301726}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Tire_v5_R
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -510,7 +565,7 @@ GameObject:
   - component: {fileID: 4409147210091310}
   - component: {fileID: 33693407217718806}
   - component: {fileID: 23913262907098448}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Weapon_v1_1 (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -589,7 +644,7 @@ GameObject:
   - component: {fileID: 4759148431549510}
   - component: {fileID: 33633801954775372}
   - component: {fileID: 23298343086288112}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Headlight_v1_15 (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -668,7 +723,7 @@ GameObject:
   - component: {fileID: 4864387366440446}
   - component: {fileID: 33650010539047428}
   - component: {fileID: 23010123198264752}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Headlight_v1_1 (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -747,7 +802,7 @@ GameObject:
   - component: {fileID: 4549158983465686}
   - component: {fileID: 33908860858016948}
   - component: {fileID: 23315173067649818}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Headlight_v1_1 (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -826,7 +881,7 @@ GameObject:
   - component: {fileID: 4827781605710732}
   - component: {fileID: 33364759714035718}
   - component: {fileID: 23301237557197142}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Tire_v5_L
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -906,7 +961,7 @@ GameObject:
   - component: {fileID: 8721132221196492128}
   - component: {fileID: 4603347738045423303}
   - component: {fileID: 861370044771677502}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Sphere
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -987,3 +1042,74 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!1001 &2130055833933091479
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 4563595028846688}
+    m_Modifications:
+    - target: {fileID: 148586, guid: f7167ad2844254441b40b8a300b4f1fe, type: 3}
+      propertyPath: m_Name
+      value: DustTrail
+      objectReference: {fileID: 0}
+    - target: {fileID: 148586, guid: f7167ad2844254441b40b8a300b4f1fe, type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 496482, guid: f7167ad2844254441b40b8a300b4f1fe, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.02
+      objectReference: {fileID: 0}
+    - target: {fileID: 496482, guid: f7167ad2844254441b40b8a300b4f1fe, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.54
+      objectReference: {fileID: 0}
+    - target: {fileID: 496482, guid: f7167ad2844254441b40b8a300b4f1fe, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -2.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 496482, guid: f7167ad2844254441b40b8a300b4f1fe, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0.7071062
+      objectReference: {fileID: 0}
+    - target: {fileID: 496482, guid: f7167ad2844254441b40b8a300b4f1fe, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.000000022351742
+      objectReference: {fileID: 0}
+    - target: {fileID: 496482, guid: f7167ad2844254441b40b8a300b4f1fe, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0.00000007038021
+      objectReference: {fileID: 0}
+    - target: {fileID: 496482, guid: f7167ad2844254441b40b8a300b4f1fe, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.70710737
+      objectReference: {fileID: 0}
+    - target: {fileID: 496482, guid: f7167ad2844254441b40b8a300b4f1fe, type: 3}
+      propertyPath: m_RootOrder
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 496482, guid: f7167ad2844254441b40b8a300b4f1fe, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 496482, guid: f7167ad2844254441b40b8a300b4f1fe, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 496482, guid: f7167ad2844254441b40b8a300b4f1fe, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 19895962, guid: f7167ad2844254441b40b8a300b4f1fe, type: 3}
+      propertyPath: ShapeModule.radius.value
+      value: 1.08
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: f7167ad2844254441b40b8a300b4f1fe, type: 3}
+--- !u!4 &2130055833932988917 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 496482, guid: f7167ad2844254441b40b8a300b4f1fe,
+    type: 3}
+  m_PrefabInstance: {fileID: 2130055833933091479}
+  m_PrefabAsset: {fileID: 0}

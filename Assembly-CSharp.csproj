@@ -63,7 +63,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\EnemySpawnerService.cs" />
     <Compile Include="Assets\FX\WarFX\Demo\Assets\CFX_AutoStopLoopedEffect.cs" />
     <Compile Include="Assets\FX\WarFX\Demo\Assets\CFX_Demo_RandomDir.cs" />
     <Compile Include="Assets\FX\WarFX\Demo\Assets\CFX_Demo_RotateCamera.cs" />
@@ -80,12 +79,14 @@
     <Compile Include="Assets\FX\WarFX\Spawn System\CFX_SpawnSystem.cs" />
     <Compile Include="Assets\Scripts\CameraController.cs" />
     <Compile Include="Assets\Scripts\EnemyController.cs" />
+    <Compile Include="Assets\Scripts\EnemySpawnerService.cs" />
     <Compile Include="Assets\Scripts\Guns.cs" />
     <Compile Include="Assets\Scripts\MonoSingletonGeneric.cs" />
     <Compile Include="Assets\Scripts\PlayerController.cs" />
     <Compile Include="Assets\Scripts\PlayerHealth.cs" />
     <Compile Include="Assets\Scripts\PlayerInputs.cs" />
     <Compile Include="Assets\Scripts\ScriptableObjectScripts\Vehicles.cs" />
+    <Compile Include="Assets\Scripts\ShellExplosion.cs" />
     <Compile Include="Assets\Scripts\ShootableTarget.cs" />
     <Compile Include="Assets\Scripts\VehicleController.cs" />
     <Compile Include="Assets\Scripts\VehicleModel.cs" />
@@ -742,6 +743,14 @@
     <ProjectReference Include="Assembly-CSharp-firstpass.csproj">
       <Project>{641F74C4-20C1-1CC2-78D2-221778BC437C}</Project>
       <Name>Assembly-CSharp-firstpass</Name>
+    </ProjectReference>
+    <ProjectReference Include="NavMeshComponentsEditor.csproj">
+      <Project>{381D16D3-C291-7280-77C4-6BFF9BF71875}</Project>
+      <Name>NavMeshComponentsEditor</Name>
+    </ProjectReference>
+    <ProjectReference Include="NavMeshComponents.csproj">
+      <Project>{20BBC3A9-4121-892A-7FCF-2AC030DAC457}</Project>
+      <Name>NavMeshComponents</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

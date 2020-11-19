@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
-
+using System.Collections;
 public class PlayerHealth : MonoBehaviour
 {
     [SerializeField] private float health = 100f;
@@ -9,8 +9,11 @@ public class PlayerHealth : MonoBehaviour
     [SerializeField] private Color fullHealthColor = Color.green;
     [SerializeField] private Color zeroHealthColor = Color.red;
     [SerializeField] GameObject explosionPrefab;
+    [SerializeField] GameObject postexplosionPrefab;
+    [SerializeField] GameObject dustTrail;
 
     private ParticleSystem explosionParticles;
+    private ParticleSystem postExplosionParticles;
     [SerializeField]private float currentHealth;
     public float CurrentHealth { get { return currentHealth; } }
     private bool isDead;
@@ -19,6 +22,8 @@ public class PlayerHealth : MonoBehaviour
     {
         explosionParticles = Instantiate(explosionPrefab).GetComponent<ParticleSystem>();
         explosionParticles.gameObject.SetActive(false);
+        postExplosionParticles = Instantiate(postexplosionPrefab).GetComponent<ParticleSystem>();
+        postExplosionParticles.gameObject.SetActive(false);
     }
 
     private void OnEnable()
@@ -35,7 +40,7 @@ public class PlayerHealth : MonoBehaviour
         SetHealthUI();
         if(currentHealth<=0f && !isDead)
         {
-            OnDeath();
+            StartCoroutine(OnDeath());
         }
     }
     private void Update()
@@ -47,10 +52,24 @@ public class PlayerHealth : MonoBehaviour
         slider.value = currentHealth;
         fillImage.color = Color.Lerp(zeroHealthColor, fullHealthColor, (currentHealth/health));
     }
-    private void OnDeath()
+    IEnumerator OnDeath()
     {
         isDead = true;
+        gameObject.GetComponent<PlayerInputs>().enabled = false;
+        dustTrail.SetActive(false);
+        yield return new WaitForSeconds(1f);
+        
         explosionParticles.transform.position = transform.position;
         explosionParticles.gameObject.SetActive(true);
+        
+        yield return new WaitForSeconds(2f);
+        
+        //postExplosionParticles.transform.position = transform.position;
+        Vector3 offset = new Vector3(transform.position.x - 2f, transform.position.y, transform.position.z);
+        postExplosionParticles.transform.position = offset;
+        postExplosionParticles.gameObject.SetActive(true);       
+       
+        yield return new WaitForSeconds(10f);
+        gameObject.SetActive(false);
     }
 }
