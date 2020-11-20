@@ -78,7 +78,10 @@
     <Compile Include="Assets\FX\WarFX\Scripts\WFX_LightFlicker.cs" />
     <Compile Include="Assets\FX\WarFX\Spawn System\CFX_SpawnSystem.cs" />
     <Compile Include="Assets\Scripts\CameraController.cs" />
+    <Compile Include="Assets\Scripts\ColliderRotationFix.cs" />
+    <Compile Include="Assets\Scripts\CollisionDamage.cs" />
     <Compile Include="Assets\Scripts\EnemyController.cs" />
+    <Compile Include="Assets\Scripts\EnemyDamage.cs" />
     <Compile Include="Assets\Scripts\EnemySpawnerService.cs" />
     <Compile Include="Assets\Scripts\Guns.cs" />
     <Compile Include="Assets\Scripts\MonoSingletonGeneric.cs" />

@@ -5,30 +5,39 @@ using UnityEngine.AI;
 public class EnemyController : MonoBehaviour
 {
     [SerializeField] private Vehicles enemy;
+    [SerializeField] private float knockbackforce;
+    private Rigidbody rb;
     //[SerializeField] private LayerMask whatIsGround, whatIsPlayer;
     //[SerializeField] private bool playerInSightRange,playerInAttackRange;
     //[SerializeField] private float timeBetweenAttacks;
     //[SerializeField] private float sightRange, attackRange;
     
     private ParticleSystem explosionParticles;
-    
+    private PlayerHealth ph;
+    private EnemyDamage enemydamage;
     private float enemyHealth;
+    public float Health { get { return enemyHealth; } }
     private float enemySpeed;
     private float enemyTurnSpeed;
 
     private NavMeshAgent agent;
     private Transform player;
     private bool isDead = false;
+    public bool IsDead { get { return isDead; } }
+    
      //private bool alreadyAttacked;
 
 
 
     private void Awake()
     {
+        rb = GetComponent<Rigidbody>();
         player = FindObjectOfType<PlayerController>().GetComponent<Transform>();
+        ph = FindObjectOfType<PlayerHealth>().GetComponent<PlayerHealth>();
         agent = GetComponent<NavMeshAgent>();
         explosionParticles = Instantiate(enemy.explosionPrefab).GetComponent<ParticleSystem>();
         explosionParticles.gameObject.SetActive(false);
+        enemydamage = GetComponent<EnemyDamage>();
     }
     private void Start()
     {
@@ -45,7 +54,11 @@ public class EnemyController : MonoBehaviour
         //if (playerInSightRange && !playerInAttackRange) ChasePlayer();
         //if (playerInAttackRange && playerInSightRange) AttackPlayer();
         //agent.SetDestination(transform.position);
-        if (!isDead)
+        if (ph.IsDead)
+        {
+            Destroy(agent);
+        }
+        if (!isDead && !ph.IsDead)
         {
             agent.SetDestination(player.position);
         }
@@ -65,18 +78,27 @@ public class EnemyController : MonoBehaviour
     public void TakeDamage(float damage)
     {
         enemyHealth -= damage;
+        KnockBack();
+        enemydamage.SetHealthUI();
         if (enemyHealth <= 0)
         {
             StartCoroutine(OnDeath());
         }
     }
+
+    public void KnockBack()
+    {
+        rb.AddForce(transform.forward * -1 * agent.speed * knockbackforce);
+    }
     IEnumerator OnDeath()
     {
-        isDead = true;          
-        agent.SetDestination(transform.localPosition) ;
+        isDead = true;
+        Destroy(agent);
         explosionParticles.transform.position = transform.position;
         explosionParticles.gameObject.SetActive(true);        
-        yield return new WaitForSeconds(4f);
+        yield return new WaitForSeconds(8f);
         Destroy(gameObject);
     }
+
+   
 }

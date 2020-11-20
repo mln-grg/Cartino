@@ -9,12 +9,16 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float maxTurn = 25f;
     [SerializeField] Transform leftFrontWheel;
     [SerializeField] Transform rightFrontWheel;
+    [SerializeField] float knockbackforce;
+    private Rigidbody playerRb;
+   
 
     private float turnInput,speedInput;
 
     private void Awake()
     {
         playerInputs = GetComponent<PlayerInputs>();
+        playerRb = GetComponent<Rigidbody>();
  
     }
     private void Start()
@@ -35,6 +39,23 @@ public class PlayerController : MonoBehaviour
 
         leftFrontWheel.localRotation = Quaternion.Euler(leftFrontWheel.localRotation.eulerAngles.x, (turnInput * maxTurn), leftFrontWheel.localRotation.eulerAngles.z);
         rightFrontWheel.localRotation = Quaternion.Euler(rightFrontWheel.localRotation.eulerAngles.x, (turnInput * maxTurn), rightFrontWheel.localRotation.eulerAngles.z);
+    }
+
+    public void KnockBack()
+    {
+        rb.AddForce(transform.forward * -1 * speedInput * knockbackforce);
+    }
+    public void freezePlayer()
+    {
+        //playerRb.constraints = RigidbodyConstraints.FreezeAll;  
+        //playerRb.mass = 10000000f;              
+        //rb.mass = 10000000f;
+        //rb.constraints = RigidbodyConstraints.FreezeAll;
+        //rb.rotation = Quaternion.identity;
+        //rb.isKinematic = true;
+        Destroy(rb);
+        Destroy(playerRb);
+       
     }
 
     

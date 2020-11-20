@@ -14,6 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CarPrefab: {fileID: 1217994249952064, guid: 5c5515e798148e74d84fd28db331d58e, type: 3}
   explosionPrefab: {fileID: 100008, guid: 1dbc518224e49f34095aab42fe05751a, type: 3}
-  Health: 50
+  Health: 100
   acceleration: 16
   turnSpeed: 120

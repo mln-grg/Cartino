@@ -11,15 +11,19 @@ public class PlayerHealth : MonoBehaviour
     [SerializeField] GameObject explosionPrefab;
     [SerializeField] GameObject postexplosionPrefab;
     [SerializeField] GameObject dustTrail;
+    [SerializeField] private Canvas playerCanvas;
 
     private ParticleSystem explosionParticles;
     private ParticleSystem postExplosionParticles;
     [SerializeField]private float currentHealth;
+    private PlayerController pc;
     public float CurrentHealth { get { return currentHealth; } }
     private bool isDead;
+    public bool IsDead { get { return isDead; } }
 
     private void Awake()
     {
+        pc = GetComponent<PlayerController>();
         explosionParticles = Instantiate(explosionPrefab).GetComponent<ParticleSystem>();
         explosionParticles.gameObject.SetActive(false);
         postExplosionParticles = Instantiate(postexplosionPrefab).GetComponent<ParticleSystem>();
@@ -36,7 +40,7 @@ public class PlayerHealth : MonoBehaviour
     public void TakeDamage(float damage)
     {
         currentHealth -= damage;
-
+        pc.KnockBack();
         SetHealthUI();
         if(currentHealth<=0f && !isDead)
         {
@@ -45,6 +49,10 @@ public class PlayerHealth : MonoBehaviour
     }
     private void Update()
     {
+        if(IsDead == true)
+        {
+            pc.freezePlayer();    
+        }
         SetHealthUI();
     }
     private void SetHealthUI()
@@ -54,9 +62,11 @@ public class PlayerHealth : MonoBehaviour
     }
     IEnumerator OnDeath()
     {
-        isDead = true;
         gameObject.GetComponent<PlayerInputs>().enabled = false;
+       
+        isDead = true;
         dustTrail.SetActive(false);
+        Destroy(playerCanvas);
         yield return new WaitForSeconds(1f);
         
         explosionParticles.transform.position = transform.position;
