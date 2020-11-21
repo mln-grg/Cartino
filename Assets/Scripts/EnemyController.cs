@@ -56,7 +56,7 @@ public class EnemyController : MonoBehaviour
         //agent.SetDestination(transform.position);
         if (ph.IsDead)
         {
-            Destroy(agent);
+            StartCoroutine(GameOver());
         }
         if (!isDead && !ph.IsDead)
         {
@@ -78,7 +78,7 @@ public class EnemyController : MonoBehaviour
     public void TakeDamage(float damage)
     {
         enemyHealth -= damage;
-        KnockBack();
+        //KnockBack();
         enemydamage.SetHealthUI();
         if (enemyHealth <= 0)
         {
@@ -92,6 +92,7 @@ public class EnemyController : MonoBehaviour
     }
     IEnumerator OnDeath()
     {
+        enemydamage.SetHealthUI();
         isDead = true;
         Destroy(agent);
         explosionParticles.transform.position = transform.position;
@@ -99,6 +100,11 @@ public class EnemyController : MonoBehaviour
         yield return new WaitForSeconds(8f);
         Destroy(gameObject);
     }
-
+    IEnumerator GameOver()
+    {
+        Destroy(agent);
+        yield return new WaitForSeconds(5f);
+        Destroy(gameObject);
+    }
    
 }

@@ -7,6 +7,8 @@ public class Guns : MonoBehaviour
     [SerializeField] private float range;
     [SerializeField] private ParticleSystem muzzleFlash;
     [SerializeField] private GameObject HitImpact;
+
+
     private void Update()
     {
         if (Input.GetButtonDown("Fire1"))

@@ -61,20 +61,19 @@ public class CollisionDamage : MonoBehaviour
             {
                 if (colliders[i].gameObject.GetComponent<EnemyController>() != null && canTakeDamage)
                 {
-                    Debug.Log("Entered enemy Collision fn");
+          
                     StartCoroutine(damage(collisionWithEnemyDamage, nextCollisionDamageDelay));
                 }
 
                 if (colliders[i].gameObject.CompareTag("Destructible") && canTakeDamage)
                 {
-                    Debug.Log("Entered Destructible Collision fn");
+          
                     StartCoroutine(damage(collisionWithNonDestructibleDamage, nextCollisionDamageDelay));
                 }
 
                 if (colliders[i].gameObject.CompareTag("NonDestructible") && canTakeDamage)
                 {
-                    Debug.Log("Entered nonDestructible Collision fn");
-                   Debug.Log(colliders[i].gameObject.name);
+      
                     StartCoroutine(damage(collisionWithNonDestructibleDamage, nextCollisionDamageOtherDelay));
                 }
             }
@@ -83,7 +82,7 @@ public class CollisionDamage : MonoBehaviour
 
     IEnumerator damage(float damage, float delay)
     {
-        Debug.Log("taking damage");
+
         playerHealth.TakeDamage(damage);
         canTakeDamage = false;
         yield return new WaitForSeconds(delay);

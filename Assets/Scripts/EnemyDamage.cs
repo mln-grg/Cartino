@@ -34,6 +34,10 @@ public class EnemyDamage : MonoBehaviour
 
     private void Update()
     {
+        if (enemyController.IsDead == true)
+        {
+            StopAllCoroutines();
+        }
         SetHealthUI();
         currentHealth = enemyController.Health;
     }
@@ -45,34 +49,33 @@ public class EnemyDamage : MonoBehaviour
     }
     private void OnCollisionEnter(Collision collision)
     {
-        Debug.Log("Entered Collision fn");
-        Debug.Log(collision.gameObject.name);
 
     if (enemyController.IsDead == false)
     {
             if (collision.gameObject.CompareTag("Player") && canTakeDamage)
             {
-                Debug.Log("Entered enemy Collision fn");
+  
                 StartCoroutine(damage(collisionWithPlayerDamage, nextCollisionDamageDelay));
             }
 
 
             if (collision.gameObject.CompareTag("Destructible") && canTakeDamage)
             {
-               Debug.Log("Entered Destructible Collision fn");
+
                StartCoroutine(damage(collisionWithNonDestructibleDamage, nextCollisionDamageDelay));
             }
 
             if (collision.gameObject.CompareTag("NonDestructible") &&canTakeDamage )
             {
-               Debug.Log("Entered nonDestructible Collision fn");
+
                StartCoroutine(damage(collisionWithNonDestructibleDamage, nextCollisionDamageOtherDelay));
             }
     }
     }
     IEnumerator damage(float damage, float delay)
     {
-        Debug.Log("taking damage");
+        SetHealthUI();
+
         enemyController.TakeDamage(damage);
         canTakeDamage = false;
         yield return new WaitForSeconds(delay);

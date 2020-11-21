@@ -268,6 +268,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemy: {fileID: 11400000, guid: 1d5fd875dae439c49a8d404f7bada625, type: 2}
+  knockbackforce: 25
 --- !u!54 &732727411
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -298,14 +299,14 @@ NavMeshAgent:
   m_Acceleration: 25
   avoidancePriority: 50
   m_AngularSpeed: 540
-  m_StoppingDistance: 1
+  m_StoppingDistance: 6
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 0
   m_AutoRepath: 1
   m_Height: 1.9358364
   m_BaseOffset: 1
   m_WalkableMask: 4294967295
-  m_ObstacleAvoidanceType: 0
+  m_ObstacleAvoidanceType: 3
 --- !u!65 &732727412
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -331,14 +332,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 21a8cf3227038fd4193cb0af044e298f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  collisionWithPlayerDamage: 25
-  collisionWithNonDestructibleDamage: 65
-  collisionWithDestructibleDamage: 50
+  collisionWithPlayerDamage: 23
+  collisionWithNonDestructibleDamage: 10
+  collisionWithDestructibleDamage: 10
   nextCollisionDamageOtherDelay: 2
   nextCollisionDamageDelay: 1
   slider: {fileID: 5811906141097376834}
   fillImage: {fileID: 5822404466043424538}
-  fullHealthColor: {r: 0.040049836, g: 0.08205672, b: 0.5660378, a: 1}
+  fullHealthColor: {r: 0.5, g: 0.03389631, b: 0, a: 1}
   zeroHealthColor: {r: 1, g: 0, b: 0, a: 1}
 --- !u!1 &1234080632940972
 GameObject:

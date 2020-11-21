@@ -40,7 +40,7 @@ public class PlayerHealth : MonoBehaviour
     public void TakeDamage(float damage)
     {
         currentHealth -= damage;
-        pc.KnockBack();
+            //pc.KnockBack();
         SetHealthUI();
         if(currentHealth<=0f && !isDead)
         {
@@ -67,7 +67,7 @@ public class PlayerHealth : MonoBehaviour
         isDead = true;
         dustTrail.SetActive(false);
         Destroy(playerCanvas);
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(1f);    
         
         explosionParticles.transform.position = transform.position;
         explosionParticles.gameObject.SetActive(true);
