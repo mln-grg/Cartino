@@ -193,8 +193,8 @@ MonoBehaviour:
   explosionAudio: {fileID: 8798573396807011146}
   explosionPrefab: {fileID: 8788813771860632982}
   maxLifeTime: 2
-  maxDamage: 260
-  explosionForce: 1000000
+  maxDamage: 100
+  explosionForce: 1000
   explosionRadius: 5
 --- !u!1 &8880479543854200966
 GameObject:

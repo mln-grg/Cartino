@@ -58156,6 +58156,7 @@ GameObject:
   - component: {fileID: 1520375565603208850}
   - component: {fileID: 1639478381}
   - component: {fileID: 3103606142499981192}
+  - component: {fileID: 1260280007}
   m_Layer: 8
   m_Name: Player
   m_TagString: Player
@@ -58265,7 +58266,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rb: {fileID: 892418463789466573}
-  forwardAcceleration: 20
+  forwardAcceleration: 21
   turnSpeed: 150
   maxTurn: 25
   leftFrontWheel: {fileID: 6742408877069929951}
@@ -58329,8 +58330,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shell: {fileID: 8879260953886527566, guid: 572fe296878ce0d4bafe8077c6b3f414, type: 3}
   fireTransform: {fileID: 616962914}
-  minLaunchforce: 15
-  maxLaunchForce: 30
+  minLaunchForce: 5
+  maxLaunchForce: 12
   maxChargeTime: 0.75
 --- !u!54 &3103606142499981192
 Rigidbody:
@@ -58348,6 +58349,19 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!65 &1260280007
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3103606142499981194}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 0
+  serializedVersion: 2
+  m_Size: {x: 2.421793, y: 1.3024616, z: 4.701945}
+  m_Center: {x: -1.0587912e-22, y: -0.000000029802322, z: 9.595295e-23}
 --- !u!1 &3103659465928173314
 GameObject:
   m_ObjectHideFlags: 0

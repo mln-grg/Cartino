@@ -7,10 +7,14 @@ public class EnemyController : MonoBehaviour
     [SerializeField] private Vehicles enemy;
     [SerializeField] private float knockbackforce;
     private Rigidbody rb;
-    //[SerializeField] private LayerMask whatIsGround, whatIsPlayer;
-    //[SerializeField] private bool playerInSightRange,playerInAttackRange;
-    //[SerializeField] private float timeBetweenAttacks;
-    //[SerializeField] private float sightRange, attackRange;
+    [SerializeField] private LayerMask whatIsPlayer;
+    [SerializeField] private bool playerInAttackRange;
+    [SerializeField] private float timeBetweenAttacks;
+    [SerializeField] private float attackRange;
+        
+    [SerializeField] private Rigidbody shell;
+    [SerializeField] private Transform fireTransform;
+    [SerializeField] private float LaunchForce = 15f;
     
     private ParticleSystem explosionParticles;
     private PlayerHealth ph;
@@ -25,9 +29,7 @@ public class EnemyController : MonoBehaviour
     private bool isDead = false;
     public bool IsDead { get { return isDead; } }
     
-     //private bool alreadyAttacked;
-
-
+    private bool alreadyAttacked;
 
     private void Awake()
     {
@@ -49,11 +51,12 @@ public class EnemyController : MonoBehaviour
 
     private void Update()
     {
-        //playerInSightRange = Physics.CheckSphere(transform.position, sightRange, whatIsPlayer);
-        //playerInAttackRange = Physics.CheckSphere(transform.position, attackRange, whatIsPlayer);
-        //if (playerInSightRange && !playerInAttackRange) ChasePlayer();
-        //if (playerInAttackRange && playerInSightRange) AttackPlayer();
-        //agent.SetDestination(transform.position);
+   
+        playerInAttackRange = Physics.CheckSphere(transform.position, attackRange, whatIsPlayer);
+       
+        if (playerInAttackRange) 
+            AttackPlayer();
+    
         if (ph.IsDead)
         {
             StartCoroutine(GameOver());
@@ -72,7 +75,10 @@ public class EnemyController : MonoBehaviour
     private void AttackPlayer()
     {
         transform.LookAt(player);
-        //shooting not done yet
+        if (!alreadyAttacked)
+        {
+            StartCoroutine(Shoot());
+        }
     }
 
     public void TakeDamage(float damage)
@@ -106,5 +112,19 @@ public class EnemyController : MonoBehaviour
         yield return new WaitForSeconds(5f);
         Destroy(gameObject);
     }
-   
+
+    IEnumerator Shoot()
+    {
+        alreadyAttacked = true;
+        Rigidbody shellInstance = Instantiate(shell, fireTransform.position, fireTransform.rotation) as Rigidbody;
+        shellInstance.velocity = LaunchForce * fireTransform.forward;
+        
+        yield return new WaitForSeconds(timeBetweenAttacks);
+
+        alreadyAttacked = false;
+    }
+    private void OnDrawGizmos()
+    {
+        //  Gizmos.DrawSphere(transform.position, attackRange);
+    }
 }

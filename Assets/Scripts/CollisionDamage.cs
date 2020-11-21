@@ -11,6 +11,9 @@ public class CollisionDamage : MonoBehaviour
     [SerializeField] private float nextCollisionDamageDelay = 1f;
     [SerializeField] private Vector3 halfExtents;
 
+    public GameObject turret;
+    public Transform turrrrrret;
+
     [SerializeField]private LayerMask damageLayer;
 
     //private Rigidbody rigidBody;
@@ -87,6 +90,9 @@ public class CollisionDamage : MonoBehaviour
         canTakeDamage = false;
         yield return new WaitForSeconds(delay);
         canTakeDamage = true;
+
+        
+
     }
 
     private void OnDrawGizmos()

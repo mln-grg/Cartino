@@ -41,12 +41,12 @@ public class ShellExplosion : MonoBehaviour
             
             if (!playerHealth && enemyController)
             {
-                Debug.Log(damage);
+                
                 enemyController.TakeDamage(damage);
             }
             else if (!enemyController && playerHealth)
             {
-                Debug.Log(damage);
+          
                 playerHealth.TakeDamage(damage);
             }
             
