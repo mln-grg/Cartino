@@ -22,7 +22,14 @@ public class ShellExplosion : MonoBehaviour
         {
             Rigidbody targetRigidbody = colliders[i].GetComponent<Rigidbody>();
             if (!targetRigidbody)
+            {
+                explosionPrefab.transform.parent = null;
+                explosionPrefab.Play();
+                explosionAudio.Play();
+                Destroy(explosionPrefab.gameObject, explosionPrefab.main.duration);
+                Destroy(gameObject);
                 continue;
+            }
             targetRigidbody.AddExplosionForce(explosionForce, transform.position, explosionRadius);
             if (targetRigidbody.CompareTag("Player"))
             {

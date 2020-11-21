@@ -1,5 +1,35 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &616962913
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 616962914}
+  m_Layer: 8
+  m_Name: MortarFire
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &616962914
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 616962913}
+  m_LocalRotation: {x: 0.000000011675247, y: 0.9772758, z: 0.21197207, w: -0.000000029802322}
+  m_LocalPosition: {x: -0.08, y: 1.481, z: -0.884}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 3107285712056012746}
+  m_RootOrder: 14
+  m_LocalEulerAnglesHint: {x: -24.476002, y: 179.99998, z: 0}
 --- !u!1 &892418462933219089
 GameObject:
   m_ObjectHideFlags: 0
@@ -58124,6 +58154,7 @@ GameObject:
   - component: {fileID: 3103606142499981189}
   - component: {fileID: 3103606142499981193}
   - component: {fileID: 1520375565603208850}
+  - component: {fileID: 1639478381}
   - component: {fileID: 3103606142499981192}
   m_Layer: 8
   m_Name: Player
@@ -58157,6 +58188,7 @@ Transform:
   - {fileID: 4340818221111509639}
   - {fileID: 4505318021054786380}
   - {fileID: 6742408877069929951}
+  - {fileID: 616962914}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: -91.364006, z: 0}
@@ -58238,6 +58270,7 @@ MonoBehaviour:
   maxTurn: 25
   leftFrontWheel: {fileID: 6742408877069929951}
   rightFrontWheel: {fileID: 4505318021054786380}
+  knockbackforce: 20
 --- !u!114 &3103606142499981193
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -58250,7 +58283,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b5c923130971e0849abf7ff7f44289eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 100
+  health: 1000
   slider: {fileID: 892418464289613442}
   fillImage: {fileID: 892418464420845877}
   fullHealthColor: {r: 0, g: 0.54509807, b: 0, a: 1}
@@ -58273,15 +58306,32 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c750136eea8b5d54cb8896f0b76dfdcf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  collisionWithEnemyDamage: 25
-  collisionWithNonDestructibleDamage: 20
-  collisionWithDestructibleDamage: 0
+  collisionWithEnemyDamage: 1
+  collisionWithNonDestructibleDamage: 12
+  collisionWithDestructibleDamage: 3
   nextCollisionDamageOtherDelay: 2
   nextCollisionDamageDelay: 1
   halfExtents: {x: 2.18, y: 1, z: 1.05}
   damageLayer:
     serializedVersion: 2
     m_Bits: 3072
+--- !u!114 &1639478381
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3103606142499981194}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bc2c997425b7a6e47b8efaf2f4fc3675, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  shell: {fileID: 8879260953886527566, guid: 572fe296878ce0d4bafe8077c6b3f414, type: 3}
+  fireTransform: {fileID: 616962914}
+  minLaunchforce: 15
+  maxLaunchForce: 30
+  maxChargeTime: 0.75
 --- !u!54 &3103606142499981192
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -58390,7 +58440,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 708588e2e0cfddf4bad52e048ef23421, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 10
+  damage: 35
   range: 100
   muzzleFlash: {fileID: 892418462948650621}
   HitImpact: {fileID: 100002, guid: e74af37e539075d428c1f7bd8cdb781d, type: 3}
@@ -58486,7 +58536,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 708588e2e0cfddf4bad52e048ef23421, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 10
+  damage: 35
   range: 100
   muzzleFlash: {fileID: 892418463225801403}
   HitImpact: {fileID: 100002, guid: e74af37e539075d428c1f7bd8cdb781d, type: 3}
@@ -58502,7 +58552,7 @@ GameObject:
   - component: {fileID: 5547251427881088132}
   - component: {fileID: 5535715486847105118}
   m_Layer: 8
-  m_Name: Projector_v1
+  m_Name: Mortar
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -58515,13 +58565,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5514317630605135196}
-  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
-  m_LocalPosition: {x: 0.026266621, y: 1.06, z: -0.15721373}
+  m_LocalRotation: {x: 0.000000011675247, y: 0.9772758, z: 0.21197207, w: -0.000000029802322}
+  m_LocalPosition: {x: -0.08, y: 0.99, z: -0.19}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 3107285712056012746}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
+  m_LocalEulerAnglesHint: {x: -24.476002, y: 179.99998, z: 0}
 --- !u!33 &5547251427881088132
 MeshFilter:
   m_ObjectHideFlags: 0

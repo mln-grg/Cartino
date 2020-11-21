@@ -189,7 +189,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shouldDestroyMask:
     serializedVersion: 2
-    m_Bits: 2304
+    m_Bits: 2816
   explosionAudio: {fileID: 8798573396807011146}
   explosionPrefab: {fileID: 8788813771860632982}
   maxLifeTime: 2
