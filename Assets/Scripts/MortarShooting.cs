@@ -2,18 +2,19 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MortarShooting : MonoBehaviour
+public class MortarShooting : MonoBehaviour,IpooledObject
 {
-    [SerializeField] private Rigidbody shell;
+    //[SerializeField] private Rigidbody shell;
     [SerializeField] private Transform fireTransform;
     [SerializeField] private float minLaunchForce = 15f;
     [SerializeField] private float maxLaunchForce = 30f;
     [SerializeField] private float maxChargeTime = 0.75f;
+    //[SerializeField] private Button fireB;
 
     private float currentLaunchForce;
     private float chargeSpeed;
     private bool fired;
-
+    private ShellPooler shellPooler;
     private void OnEnable()
     {
         currentLaunchForce = minLaunchForce;
@@ -21,6 +22,7 @@ public class MortarShooting : MonoBehaviour
     private void Start()
     {
         chargeSpeed = (maxLaunchForce - minLaunchForce) / maxChargeTime;
+        shellPooler = ShellPooler.GetInstance();
     }
 
     private void Update()
@@ -45,11 +47,17 @@ public class MortarShooting : MonoBehaviour
         }
     }
 
-    private void Fire()
+    public void Fire()
     {
         fired = true;
-        Rigidbody shellInstance = Instantiate(shell, fireTransform.position, fireTransform.rotation) as Rigidbody;
-        shellInstance.velocity = currentLaunchForce * fireTransform.forward;
+        OnObjectSpawn();
+        //Rigidbody shellInstance = Instantiate(shell, fireTransform.position, fireTransform.rotation) as Rigidbody;
+        //shellInstance.velocity = currentLaunchForce * fireTransform.forward;
         currentLaunchForce = minLaunchForce;
+    }
+    public void OnObjectSpawn()
+    {
+  
+        shellPooler.SpawnFromPool("Shell", fireTransform.position, fireTransform.rotation, currentLaunchForce * fireTransform.forward);
     }
 }

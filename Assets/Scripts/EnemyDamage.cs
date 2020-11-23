@@ -23,9 +23,24 @@ public class EnemyDamage : MonoBehaviour
     private float health;
     private void OnEnable()
     {
+       
         currentHealth = enemyController.Health;
         health = currentHealth;
         SetHealthUI();
+        canTakeDamage = true;
+        Debug.Log("OnEnableHealthScript" + currentHealth);
+        StopAllCoroutines();
+    }
+
+    private void OnDisable()
+    {
+      
+        currentHealth = enemyController.Health;
+        Debug.Log("OnEnable" + currentHealth);
+        health = currentHealth;
+        SetHealthUI();
+        canTakeDamage = true;
+        StopAllCoroutines();
     }
     private void Awake()
     {

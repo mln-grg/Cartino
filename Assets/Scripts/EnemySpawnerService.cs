@@ -8,9 +8,10 @@ public class EnemySpawnerService : MonoSingletonGeneric<EnemySpawnerService>
     [SerializeField]private Vehicles[] enemies;
     private float playerHealth;
 
+    ShellPooler shellPooler;
     private void Start()
     {
-        GetInstance();
+        shellPooler = ShellPooler.GetInstance();
         InvokeRepeating("Spawn", spawnTime, spawnTime);
     }
     
@@ -26,7 +27,9 @@ public class EnemySpawnerService : MonoSingletonGeneric<EnemySpawnerService>
             int spawnPointsIndex = Random.Range(0, spawnPoints.Length);
             Vector3 pos = spawnPoints[spawnPointsIndex].position;
             pos.y += 2;
-            Instantiate(enemies[enemiesIndex].CarPrefab, pos, spawnPoints[spawnPointsIndex].rotation);
+            shellPooler.SpawnFromPool("Buggy", pos, spawnPoints[spawnPointsIndex].rotation, Vector3.zero);
+            //Instantiate(enemies[enemiesIndex].CarPrefab, pos, spawnPoints[spawnPointsIndex].rotation);
+
         }
     }
    

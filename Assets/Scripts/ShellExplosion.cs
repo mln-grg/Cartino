@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 
 public class ShellExplosion : MonoBehaviour
 {
@@ -13,7 +14,7 @@ public class ShellExplosion : MonoBehaviour
     private PlayerHealth playerHealth;
     private void Start()
     {
-        Destroy(gameObject, maxLifeTime);
+        //Destroy(gameObject, maxLifeTime);
     }
     private void OnTriggerEnter(Collider other)
     {
@@ -23,11 +24,12 @@ public class ShellExplosion : MonoBehaviour
             Rigidbody targetRigidbody = colliders[i].GetComponent<Rigidbody>();
             if (!targetRigidbody)
             {
-                explosionPrefab.transform.parent = null;
+                //explosionPrefab.transform.parent = null;
                 explosionPrefab.Play();
                 explosionAudio.Play();
-                Destroy(explosionPrefab.gameObject, explosionPrefab.main.duration);
-                Destroy(gameObject);
+                //Destroy(explosionPrefab.gameObject, explosionPrefab.main.duration);
+                //Destroy(gameObject);
+                StartCoroutine(timer());
                 continue;
             }
             targetRigidbody.AddExplosionForce(explosionForce, transform.position, explosionRadius);
@@ -50,11 +52,12 @@ public class ShellExplosion : MonoBehaviour
                 playerHealth.TakeDamage(damage);
             }
             
-            explosionPrefab.transform.parent = null;
+            //explosionPrefab.transform.parent = null;
             explosionPrefab.Play();
             explosionAudio.Play();
-            Destroy(explosionPrefab.gameObject, explosionPrefab.main.duration);
-            Destroy(gameObject);
+            //Destroy(explosionPrefab.gameObject, explosionPrefab.main.duration);
+            //Destroy(gameObject);
+            StartCoroutine(timer());
         }
     }
     private float CalculateDamage(Vector3 targetPosition)
@@ -65,6 +68,12 @@ public class ShellExplosion : MonoBehaviour
         float damage = relativeDistance * maxDamage;
         damage = Mathf.Max(0f, damage);
         return damage;
+    }
+    IEnumerator timer()
+    {
+        yield return new WaitForSeconds(explosionPrefab.main.duration);
+        //explosionPrefab.transform.parent = gameObject.transform;
+        gameObject.SetActive(false);
     }
 }
 //player 1000000

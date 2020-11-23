@@ -2,7 +2,7 @@
 using UnityEngine;
 using System.Collections;
 using UnityEngine.AI;
-public class EnemyController : MonoBehaviour
+public class EnemyController : MonoBehaviour,IpooledObject
 {
     [SerializeField] private Vehicles enemy;
     [SerializeField] private float knockbackforce;
@@ -12,7 +12,7 @@ public class EnemyController : MonoBehaviour
     [SerializeField] private float timeBetweenAttacks;
     [SerializeField] private float attackRange;
         
-    [SerializeField] private Rigidbody shell;
+    //[SerializeField] private Rigidbody shell;
     [SerializeField] private Transform fireTransform;
     [SerializeField] private float LaunchForce = 15f;
     
@@ -30,7 +30,7 @@ public class EnemyController : MonoBehaviour
     public bool IsDead { get { return isDead; } }
     
     private bool alreadyAttacked;
-
+    private ShellPooler shellPooler;
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
@@ -43,10 +43,33 @@ public class EnemyController : MonoBehaviour
     }
     private void Start()
     {
+        //enemyHealth = enemy.Health;
+        //enemySpeed = enemy.acceleration;
+        //enemyTurnSpeed = enemy.turnSpeed;
+        //shellPooler = ShellPooler.GetInstance(); 
+    }
+    private void OnEnable()
+    {
+        isDead = false;
+        alreadyAttacked = false;
         enemyHealth = enemy.Health;
         enemySpeed = enemy.acceleration;
         enemyTurnSpeed = enemy.turnSpeed;
-        
+        Debug.Log("OnEnable" + enemyHealth);
+        shellPooler = ShellPooler.GetInstance();
+        StopAllCoroutines();
+    }
+
+    private void OnDisable()
+    {
+        isDead = false;
+        alreadyAttacked = false;
+        enemyHealth = enemy.Health;
+        enemySpeed = enemy.acceleration;
+        enemyTurnSpeed = enemy.turnSpeed;
+        Debug.Log("OnDisable" + enemyHealth);
+        StopAllCoroutines();
+        //shellPooler = ShellPooler.GetInstance();
     }
 
     private void Update()
@@ -100,11 +123,12 @@ public class EnemyController : MonoBehaviour
     {
         enemydamage.SetHealthUI();
         isDead = true;
-        Destroy(agent);
+        agent.SetDestination(transform.localPosition);
         explosionParticles.transform.position = transform.position;
         explosionParticles.gameObject.SetActive(true);        
         yield return new WaitForSeconds(8f);
-        Destroy(gameObject);
+        gameObject.SetActive(false);
+        //Destroy(gameObject);
     }
     IEnumerator GameOver()
     {
@@ -116,13 +140,19 @@ public class EnemyController : MonoBehaviour
     IEnumerator Shoot()
     {
         alreadyAttacked = true;
-        Rigidbody shellInstance = Instantiate(shell, fireTransform.position, fireTransform.rotation) as Rigidbody;
-        shellInstance.velocity = LaunchForce * fireTransform.forward;
-        
+        //Rigidbody shellInstance = Instantiate(shell, fireTransform.position, fireTransform.rotation) as Rigidbody;
+        //shellInstance.velocity = LaunchForce * fireTransform.forward;
+        OnObjectSpawn();
         yield return new WaitForSeconds(timeBetweenAttacks);
 
         alreadyAttacked = false;
     }
+
+    public void OnObjectSpawn()
+    {
+        shellPooler.SpawnFromPool("Shell", fireTransform.position, fireTransform.rotation, LaunchForce * fireTransform.forward);
+    }
+
     private void OnDrawGizmos()
     {
         //  Gizmos.DrawSphere(transform.position, attackRange);

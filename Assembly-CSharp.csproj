@@ -84,6 +84,7 @@
     <Compile Include="Assets\Scripts\EnemyDamage.cs" />
     <Compile Include="Assets\Scripts\EnemySpawnerService.cs" />
     <Compile Include="Assets\Scripts\Guns.cs" />
+    <Compile Include="Assets\Scripts\IpooledObject.cs" />
     <Compile Include="Assets\Scripts\MonoSingletonGeneric.cs" />
     <Compile Include="Assets\Scripts\MortarShooting.cs" />
     <Compile Include="Assets\Scripts\PlayerController.cs" />
@@ -91,6 +92,7 @@
     <Compile Include="Assets\Scripts\PlayerInputs.cs" />
     <Compile Include="Assets\Scripts\ScriptableObjectScripts\Vehicles.cs" />
     <Compile Include="Assets\Scripts\ShellExplosion.cs" />
+    <Compile Include="Assets\Scripts\ShellPooler.cs" />
     <Compile Include="Assets\Scripts\ShootableTarget.cs" />
     <Compile Include="Assets\Scripts\VehicleController.cs" />
     <Compile Include="Assets\Scripts\VehicleModel.cs" />
@@ -658,6 +660,9 @@
     <Reference Include="Unity.Timeline.Editor">
       <HintPath>E:/EverythingUnity/Unity Stuffs/PakoWithGuns/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
     </Reference>
+    <Reference Include="Unity.TerrainTools">
+      <HintPath>E:/EverythingUnity/Unity Stuffs/PakoWithGuns/Library/ScriptAssemblies/Unity.TerrainTools.dll</HintPath>
+    </Reference>
     <Reference Include="Unity.RenderPipelines.Universal.Shaders">
       <HintPath>E:/EverythingUnity/Unity Stuffs/PakoWithGuns/Library/ScriptAssemblies/Unity.RenderPipelines.Universal.Shaders.dll</HintPath>
     </Reference>
@@ -729,6 +734,9 @@
     </Reference>
     <Reference Include="Unity.TextMeshPro">
       <HintPath>E:/EverythingUnity/Unity Stuffs/PakoWithGuns/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.TerrainTools.Editor">
+      <HintPath>E:/EverythingUnity/Unity Stuffs/PakoWithGuns/Library/ScriptAssemblies/Unity.TerrainTools.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Analytics.DataPrivacy">
       <HintPath>E:/EverythingUnity/Unity Stuffs/PakoWithGuns/Library/ScriptAssemblies/Unity.Analytics.DataPrivacy.dll</HintPath>
