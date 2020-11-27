@@ -2,47 +2,53 @@
 using UnityEngine;
 using System.Collections;
 using UnityEngine.AI;
-public class EnemyController : MonoBehaviour,IpooledObject
+using System.Collections.Generic;
+
+public class EnemyStatesController : MonoBehaviour, IpooledObject
 {
+    EnemyStates currentState;
+    [SerializeField] List<EnemyStates> states = new List<EnemyStates>();
+
     [SerializeField] private Vehicles enemy;
-    [SerializeField] private float knockbackforce;
     [SerializeField] private LayerMask whatIsPlayer;
-    [SerializeField] private bool playerInAttackRange;
     [SerializeField] private float timeBetweenAttacks;
     [SerializeField] private float attackRange;
     [SerializeField] private GameObject dustTrail;
-        
-    private Rigidbody rb;
     [SerializeField] private Transform fireTransform;
     [SerializeField] private float LaunchForce = 15f;
+
     
-    private ParticleSystem explosionParticles;
     private PlayerHealth ph;
     private EnemyDamage enemydamage;
-    private float enemyHealth;
-    public float Health { get { return enemyHealth; } }
-    private float enemySpeed;
-    private float enemyTurnSpeed;
-
+    private ShellPooler shellPooler;
+    private ParticleSystem explosionParticles;
     private NavMeshAgent agent;
     private Transform player;
-    private bool isDead = false;
+    private Rigidbody rb;
+ 
+
     public bool IsDead { get { return isDead; } }
-    
+    public float Health { get { return enemyHealth; } }
+    private bool playerInAttackRange;
+    private float enemySpeed;
+    private float enemyTurnSpeed;
     private bool alreadyAttacked;
-    private ShellPooler shellPooler;
     private bool canShoot = true;
+    private bool isDead = false;
+    private float enemyHealth;
 
-    public enum Enemy_State
+
+
+    private void Awake()
     {
-        Aggro,
-        Death
-    }
-    public Enemy_State enemyState;
 
+
+    }
+    private void Start()
+    {
+    }
     private void OnEnable()
     {
-        enemyState = Enemy_State.Aggro;
         rb = GetComponent<Rigidbody>();
         player = FindObjectOfType<PlayerController>().GetComponent<Transform>();
         ph = FindObjectOfType<PlayerHealth>().GetComponent<PlayerHealth>();
@@ -58,7 +64,7 @@ public class EnemyController : MonoBehaviour,IpooledObject
         enemyHealth = enemy.Health;
         enemySpeed = enemy.acceleration;
         enemyTurnSpeed = enemy.turnSpeed;
-       
+
         agent.enabled = true;
         shellPooler = ShellPooler.GetInstance();
         StopAllCoroutines();
@@ -66,35 +72,25 @@ public class EnemyController : MonoBehaviour,IpooledObject
 
     private void Update()
     {
-   
+
         playerInAttackRange = Physics.CheckSphere(transform.position, attackRange, whatIsPlayer);
 
-        if (enemyHealth <= 0)
-        {
-            enemyState = Enemy_State.Death;
-        }
-    
+        if (playerInAttackRange && canShoot)
+            AttackPlayer();
+
         if (ph.IsDead)
         {
             StartCoroutine(GameOver());
         }
-        if (!isDead && !ph.IsDead && enemyHealth>0)
+        if (!isDead && !ph.IsDead)
         {
-            enemyState = Enemy_State.Aggro;
+            agent.SetDestination(player.position);
         }
 
-        switch (enemyState)
-        {
-            case Enemy_State.Aggro:
-                agent.SetDestination(player.position);
-                if (playerInAttackRange && canShoot)
-                    AttackPlayer();
-                break;
-            case Enemy_State.Death:
-                isDead = true;
-                StartCoroutine(OnDeath());
-                break;
-        }
+    }
+    private void ChasePlayer()
+    {
+
     }
 
     private void AttackPlayer()
@@ -112,24 +108,19 @@ public class EnemyController : MonoBehaviour,IpooledObject
         enemydamage.SetHealthUI();
         if (enemyHealth <= 0)
         {
-            enemyState = Enemy_State.Death;
+            StartCoroutine(OnDeath());
         }
     }
 
-    public void KnockBack()
-    {
-        rb.AddForce(transform.forward * -1 * agent.speed * knockbackforce);
-    }
     IEnumerator OnDeath()
     {
         dustTrail.gameObject.SetActive(false);
         canShoot = false;
         enemydamage.SetHealthUI();
         isDead = true;
-
         agent.enabled = false;
         explosionParticles.transform.position = transform.position;
-        explosionParticles.gameObject.SetActive(true);        
+        explosionParticles.gameObject.SetActive(true);
         yield return new WaitForSeconds(8f);
         gameObject.SetActive(false);
 
@@ -146,6 +137,7 @@ public class EnemyController : MonoBehaviour,IpooledObject
         alreadyAttacked = true;
         OnObjectSpawn();
         yield return new WaitForSeconds(timeBetweenAttacks);
+
         alreadyAttacked = false;
     }
 
@@ -158,4 +150,6 @@ public class EnemyController : MonoBehaviour,IpooledObject
     {
         //  Gizmos.DrawSphere(transform.position, attackRange);
     }
+
+
 }

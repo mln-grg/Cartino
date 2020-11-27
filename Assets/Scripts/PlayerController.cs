@@ -36,11 +36,15 @@ public class PlayerController : MonoBehaviour
         
         speedInput = forwardAcceleration * 1000f;
 
-        rb.AddForce(transform.forward * speedInput);
+        
         transform.rotation = Quaternion.Euler(transform.rotation.eulerAngles + new Vector3(0f, turnInput * turnSpeed * Time.deltaTime * 1, 0f));
 
         leftFrontWheel.localRotation = Quaternion.Euler(leftFrontWheel.localRotation.eulerAngles.x, (turnInput * maxTurn), leftFrontWheel.localRotation.eulerAngles.z);
         rightFrontWheel.localRotation = Quaternion.Euler(rightFrontWheel.localRotation.eulerAngles.x, (turnInput * maxTurn), rightFrontWheel.localRotation.eulerAngles.z);
+    }
+    private void FixedUpdate()
+    {
+        rb.AddForce(transform.forward * speedInput);
     }
 
     public void KnockBack()

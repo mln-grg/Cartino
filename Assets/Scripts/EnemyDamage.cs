@@ -28,18 +28,7 @@ public class EnemyDamage : MonoBehaviour
         health = currentHealth;
         SetHealthUI();
         canTakeDamage = true;
-        Debug.Log("OnEnableHealthScript" + currentHealth);
-        StopAllCoroutines();
-    }
 
-    private void OnDisable()
-    {
-      
-        currentHealth = enemyController.Health;
-        Debug.Log("OnEnable" + currentHealth);
-        health = currentHealth;
-        SetHealthUI();
-        canTakeDamage = true;
         StopAllCoroutines();
     }
     private void Awake()
@@ -90,7 +79,6 @@ public class EnemyDamage : MonoBehaviour
     IEnumerator damage(float damage, float delay)
     {
         SetHealthUI();
-
         enemyController.TakeDamage(damage);
         canTakeDamage = false;
         yield return new WaitForSeconds(delay);

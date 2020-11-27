@@ -94,6 +94,9 @@
     <Compile Include="Assets\Scripts\ShellExplosion.cs" />
     <Compile Include="Assets\Scripts\ShellPooler.cs" />
     <Compile Include="Assets\Scripts\ShootableTarget.cs" />
+    <Compile Include="Assets\Scripts\StateMachineScripts\EnemyChase.cs" />
+    <Compile Include="Assets\Scripts\StateMachineScripts\EnemyStates.cs" />
+    <Compile Include="Assets\Scripts\StateMachineScripts\EnemyStatesController.cs" />
     <Compile Include="Assets\Scripts\VehicleController.cs" />
     <Compile Include="Assets\Scripts\VehicleModel.cs" />
     <Compile Include="Assets\Scripts\VehicleService.cs" />

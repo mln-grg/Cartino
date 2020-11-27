@@ -12,9 +12,14 @@ public class ShellExplosion : MonoBehaviour
     [SerializeField] private float explosionRadius = 5f;
 
     private PlayerHealth playerHealth;
+    
     private void Start()
     {
-        //Destroy(gameObject, maxLifeTime);
+
+    }
+    private void OnEnable()
+    {
+        
     }
     private void OnTriggerEnter(Collider other)
     {
@@ -24,11 +29,10 @@ public class ShellExplosion : MonoBehaviour
             Rigidbody targetRigidbody = colliders[i].GetComponent<Rigidbody>();
             if (!targetRigidbody)
             {
-                //explosionPrefab.transform.parent = null;
+
                 explosionPrefab.Play();
                 explosionAudio.Play();
-                //Destroy(explosionPrefab.gameObject, explosionPrefab.main.duration);
-                //Destroy(gameObject);
+
                 StartCoroutine(timer());
                 continue;
             }
@@ -52,11 +56,10 @@ public class ShellExplosion : MonoBehaviour
                 playerHealth.TakeDamage(damage);
             }
             
-            //explosionPrefab.transform.parent = null;
+
             explosionPrefab.Play();
             explosionAudio.Play();
-            //Destroy(explosionPrefab.gameObject, explosionPrefab.main.duration);
-            //Destroy(gameObject);
+ 
             StartCoroutine(timer());
         }
     }
@@ -72,8 +75,11 @@ public class ShellExplosion : MonoBehaviour
     IEnumerator timer()
     {
         yield return new WaitForSeconds(explosionPrefab.main.duration);
-        //explosionPrefab.transform.parent = gameObject.transform;
         gameObject.SetActive(false);
+    }
+    private void OnDrawGizmos()
+    {
+          Gizmos.DrawSphere(transform.position, explosionRadius);
     }
 }
 //player 1000000
