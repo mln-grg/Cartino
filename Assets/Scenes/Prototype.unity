@@ -362,11 +362,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: CompleteShell
       objectReference: {fileID: 0}
-    - target: {fileID: 8879260953883407730, guid: 572fe296878ce0d4bafe8077c6b3f414,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 572fe296878ce0d4bafe8077c6b3f414, type: 3}
 --- !u!1 &116555569
@@ -14429,7 +14424,7 @@ MonoBehaviour:
   isGlobal: 1
   priority: 0
   blendDistance: 0
-  weight: 1
+  weight: 0.695
   sharedProfile: {fileID: 11400000, guid: 10fc4df2da32a41aaa32d77bc913491c, type: 2}
 --- !u!4 &653260038
 Transform:

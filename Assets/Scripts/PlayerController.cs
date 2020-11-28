@@ -29,7 +29,8 @@ public class PlayerController : MonoBehaviour
     }
     private void Update()
     {
-      transform.localPosition = rb.transform.position;
+        //Application.targetFrameRate = 60;
+        transform.localPosition = rb.transform.position;
         speedInput = 0;
 
         turnInput = playerInputs.horizontalinput;

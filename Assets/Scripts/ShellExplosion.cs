@@ -13,14 +13,7 @@ public class ShellExplosion : MonoBehaviour
 
     private PlayerHealth playerHealth;
     
-    private void Start()
-    {
 
-    }
-    private void OnEnable()
-    {
-        
-    }
     private void OnTriggerEnter(Collider other)
     {
         Collider[] colliders = Physics.OverlapSphere(transform.position, explosionRadius, shouldDestroyMask);

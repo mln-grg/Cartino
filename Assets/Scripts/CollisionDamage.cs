@@ -62,7 +62,7 @@ public class CollisionDamage : MonoBehaviour
             Collider[] colliders = Physics.OverlapBox(transform.position, halfExtents, Quaternion.identity, damageLayer);
             for (int i = 0; i < colliders.Length; i++)
             {
-                if (colliders[i].gameObject.GetComponent<EnemyController>() != null && canTakeDamage)
+                if (colliders[i].gameObject.CompareTag("Enemy") && canTakeDamage)
                 {
           
                     StartCoroutine(damage(collisionWithEnemyDamage, nextCollisionDamageDelay));
