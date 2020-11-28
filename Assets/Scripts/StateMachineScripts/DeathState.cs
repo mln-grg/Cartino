@@ -1,7 +1,6 @@
 ﻿using UnityEngine;
-using System.Collections;
-using UnityEngine.AI;
-public class EnemyChase : EnemyStates
+
+public class DeathState : EnemyStates
 {
     EnemyController enemyController;
     private void OnEnable()
@@ -11,14 +10,10 @@ public class EnemyChase : EnemyStates
     public override void OnEnter()
     {
         base.OnEnter();
-        enemyController.Chase();
+        enemyController.Death();
     }
     public override void OnExit()
     {
         base.OnExit();
-    }
-    private void Update()
-    {
-        
     }
 }

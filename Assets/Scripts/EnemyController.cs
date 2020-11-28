@@ -2,8 +2,13 @@
 using UnityEngine;
 using System.Collections;
 using UnityEngine.AI;
+using System.Collections.Generic;
+
 public class EnemyController : MonoBehaviour,IpooledObject
 {
+    EnemyStates currentState;
+    [SerializeField] private List<EnemyStates> states = new List<EnemyStates>();
+
     [SerializeField] private Vehicles enemy;
     [SerializeField] private float knockbackforce;
     [SerializeField] private LayerMask whatIsPlayer;
@@ -33,16 +38,10 @@ public class EnemyController : MonoBehaviour,IpooledObject
     private ShellPooler shellPooler;
     private bool canShoot = true;
 
-    public enum Enemy_State
-    {
-        Aggro,
-        Death
-    }
-    public Enemy_State enemyState;
 
     private void OnEnable()
     {
-        enemyState = Enemy_State.Aggro;
+
         rb = GetComponent<Rigidbody>();
         player = FindObjectOfType<PlayerController>().GetComponent<Transform>();
         ph = FindObjectOfType<PlayerHealth>().GetComponent<PlayerHealth>();
@@ -71,7 +70,16 @@ public class EnemyController : MonoBehaviour,IpooledObject
 
         if (enemyHealth <= 0)
         {
-            enemyState = Enemy_State.Death;
+            
+            for(int i =0; i < states.Count; i++)
+            {
+                if (states[i].GetType().Equals(typeof(DeathState)))
+                {
+                    EnemyStates state = states[i];
+                    ChangeState(state);
+                }
+            }
+            
         }
     
         if (ph.IsDead)
@@ -80,23 +88,28 @@ public class EnemyController : MonoBehaviour,IpooledObject
         }
         if (!isDead && !ph.IsDead && enemyHealth>0)
         {
-            enemyState = Enemy_State.Aggro;
+            for (int i = 0; i < states.Count; i++)
+            {
+                if (states[i].GetType().Equals(typeof(EnemyChase)))
+                {
+                    EnemyStates state = states[i];
+                    ChangeState(state);
+                }
+            }
         }
 
-        switch (enemyState)
-        {
-            case Enemy_State.Aggro:
-                agent.SetDestination(player.position);
-                if (playerInAttackRange && canShoot)
-                    AttackPlayer();
-                break;
-            case Enemy_State.Death:
-                isDead = true;
-                StartCoroutine(OnDeath());
-                break;
-        }
     }
-
+    public void Chase()
+    {
+        agent.SetDestination(player.position);
+        if (playerInAttackRange && canShoot)
+            AttackPlayer();
+    }
+    public void Death()
+    {
+        isDead = true;
+        StartCoroutine(OnDeath());
+    }
     private void AttackPlayer()
     {
         transform.LookAt(player);
@@ -112,7 +125,14 @@ public class EnemyController : MonoBehaviour,IpooledObject
         enemydamage.SetHealthUI();
         if (enemyHealth <= 0)
         {
-            enemyState = Enemy_State.Death;
+            for (int i = 0; i < states.Count; i++)
+            {
+                if (states[i].GetType().Equals(typeof(DeathState)))
+                {
+                    EnemyStates state = states[i];
+                    ChangeState(state);
+                }
+            }
         }
     }
 
@@ -152,6 +172,16 @@ public class EnemyController : MonoBehaviour,IpooledObject
     public void OnObjectSpawn()
     {
         shellPooler.SpawnFromPool("Shell", fireTransform.position, fireTransform.rotation, LaunchForce * fireTransform.forward);
+    }
+
+    public void ChangeState(EnemyStates state)
+    {
+        if (currentState != null)
+        {
+            currentState.OnExit();
+        }
+        currentState = state;
+        currentState.OnEnter();
     }
 
     private void OnDrawGizmos()

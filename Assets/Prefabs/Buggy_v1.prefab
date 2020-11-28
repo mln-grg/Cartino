@@ -174,6 +174,8 @@ GameObject:
   - component: {fileID: 732727413}
   - component: {fileID: 732727412}
   - component: {fileID: 1951257571}
+  - component: {fileID: 3309439734126621855}
+  - component: {fileID: 2314813153542493390}
   m_Layer: 11
   m_Name: Buggy_v1
   m_TagString: Untagged
@@ -268,6 +270,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f271c74a6eb15e04dbda9bec73f5c093, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  states:
+  - {fileID: 3309439734126621855}
+  - {fileID: 2314813153542493390}
   enemy: {fileID: 11400000, guid: 1d5fd875dae439c49a8d404f7bada625, type: 2}
   knockbackforce: 25
   whatIsPlayer:
@@ -279,7 +284,6 @@ MonoBehaviour:
   dustTrail: {fileID: 2130055833933240061}
   fireTransform: {fileID: 1644965370891603839}
   LaunchForce: 20
-  enemyState: 0
 --- !u!54 &732727411
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -352,6 +356,30 @@ MonoBehaviour:
   fillImage: {fileID: 5822404466043424538}
   fullHealthColor: {r: 0.5, g: 0.03389631, b: 0, a: 1}
   zeroHealthColor: {r: 1, g: 0, b: 0, a: 1}
+--- !u!114 &3309439734126621855
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1217994249952064}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1943caf5c082b1b4b828be12156a68bf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &2314813153542493390
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1217994249952064}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 99e49d3488c97754bb8039fe8517e237, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1234080632940972
 GameObject:
   m_ObjectHideFlags: 0

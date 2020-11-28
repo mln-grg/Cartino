@@ -79,7 +79,7 @@ public class ShellExplosion : MonoBehaviour
     }
     private void OnDrawGizmos()
     {
-          Gizmos.DrawSphere(transform.position, explosionRadius);
+          //Gizmos.DrawSphere(transform.position, explosionRadius);
     }
 }
 //player 1000000
