@@ -28,6 +28,12 @@ public class Guns : MonoBehaviour
         RaycastHit hit;
         if (Physics.Raycast(transform.position, transform.forward, out hit, range))
         {
+            //if(hit.transform.tag == "Destructible")
+            {
+                //DestructibleObject dO = hit.transform.GetComponent<DestructibleObject>();
+                //dO.IDestructible();
+                //hit.transform.GetComponent<DestructibleObject>().IDestructible();
+            }
             EnemyController target =hit.transform.GetComponent<EnemyController>();
             if (target != null)
             {
