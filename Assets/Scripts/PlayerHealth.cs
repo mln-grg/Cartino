@@ -9,25 +9,24 @@ public class PlayerHealth : MonoBehaviour
     [SerializeField] private Color fullHealthColor = Color.green;
     [SerializeField] private Color zeroHealthColor = Color.red;
     [SerializeField] GameObject explosionPrefab;
-    [SerializeField] GameObject postexplosionPrefab;
+    //[SerializeField] GameObject postexplosionPrefab;
     [SerializeField] GameObject dustTrail;
-    [SerializeField] private Canvas playerCanvas;
 
     private ParticleSystem explosionParticles;
-    private ParticleSystem postExplosionParticles;
+    //private ParticleSystem postExplosionParticles;
     [SerializeField]private float currentHealth;
     private PlayerController pc;
     public float CurrentHealth { get { return currentHealth; } }
     private bool isDead;
     public bool IsDead { get { return isDead; } }
-
+    public AudioSource explosionAudio;
     private void Awake()
     {
         pc = GetComponent<PlayerController>();
         explosionParticles = Instantiate(explosionPrefab).GetComponent<ParticleSystem>();
         explosionParticles.gameObject.SetActive(false);
-        postExplosionParticles = Instantiate(postexplosionPrefab).GetComponent<ParticleSystem>();
-        postExplosionParticles.gameObject.SetActive(false);
+        //postExplosionParticles = Instantiate(postexplosionPrefab).GetComponent<ParticleSystem>();
+        //postExplosionParticles.gameObject.SetActive(false);
     }
 
     private void OnEnable()
@@ -62,24 +61,26 @@ public class PlayerHealth : MonoBehaviour
     }
     IEnumerator OnDeath()
     {
+        AudioSource x = Instantiate(explosionAudio, transform.position, Quaternion.identity);
         gameObject.GetComponent<PlayerInputs>().enabled = false;
        
         isDead = true;
         dustTrail.SetActive(false);
-        Destroy(playerCanvas);
-        yield return new WaitForSeconds(1f);    
+        //yield return new WaitForSeconds(1f);    
         
         explosionParticles.transform.position = transform.position;
         explosionParticles.gameObject.SetActive(true);
+        yield return null;
+        //yield return new WaitForSeconds(2f);
         
-        yield return new WaitForSeconds(2f);
-        
-        //postExplosionParticles.transform.position = transform.position;
-        Vector3 offset = new Vector3(transform.position.x - 2f, transform.position.y, transform.position.z);
-        postExplosionParticles.transform.position = offset;
-        postExplosionParticles.gameObject.SetActive(true);       
+        ////postExplosionParticles.transform.position = transform.position;
+        //Vector3 offset = new Vector3(transform.position.x - 2f, transform.position.y, transform.position.z);
+        //postExplosionParticles.transform.position = offset;
+        //postExplosionParticles.gameObject.SetActive(true);       
        
-        yield return new WaitForSeconds(10f);
+        //yield return new WaitForSeconds(10f);
         gameObject.SetActive(false);
+        Destroy(x);
+        
     }
 }

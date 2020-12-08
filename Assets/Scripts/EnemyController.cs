@@ -37,11 +37,21 @@ public class EnemyController : MonoBehaviour,IpooledObject
     private bool alreadyAttacked;
     private ShellPooler shellPooler;
     private bool canShoot = true;
+    public bool canMove = false;
 
+    public GameObject enemySpawnEffect;
+    public GameObject postMortem;
+    //private ParticleSystem postParticles;
+
+    [SerializeField] private float explosionIntensity;
+    [SerializeField] private float explosionEffectDuration;
+    public AudioSource shootingSound;
+    public AudioSource explodingSound;
+    //public GameObject FloatingDamageText;
+    //public Vector3 damagePosition;
 
     private void OnEnable()
     {
-
         rb = GetComponent<Rigidbody>();
         player = FindObjectOfType<PlayerController>().GetComponent<Transform>();
         ph = FindObjectOfType<PlayerHealth>().GetComponent<PlayerHealth>();
@@ -50,6 +60,7 @@ public class EnemyController : MonoBehaviour,IpooledObject
         explosionParticles.gameObject.SetActive(false);
         enemydamage = GetComponent<EnemyDamage>();
         dustTrail.gameObject.SetActive(true);
+        //postParticles = Instantiate(postMortem.GetComponent<ParticleSystem>());
 
         canShoot = true;
         isDead = false;
@@ -57,21 +68,28 @@ public class EnemyController : MonoBehaviour,IpooledObject
         enemyHealth = enemy.Health;
         enemySpeed = enemy.acceleration;
         enemyTurnSpeed = enemy.turnSpeed;
-       
+
         agent.enabled = true;
         shellPooler = ShellPooler.GetInstance();
         StopAllCoroutines();
+        
+
+    }
+    private void OnDisable()
+    {
+        canMove = false;
     }
 
     private void Update()
     {
-   
+        if(!canMove)
+            StartCoroutine(spawnEffect());
         playerInAttackRange = Physics.CheckSphere(transform.position, attackRange, whatIsPlayer);
 
         if (enemyHealth <= 0)
         {
-            
-            for(int i =0; i < states.Count; i++)
+
+            for (int i = 0; i < states.Count; i++)
             {
                 if (states[i].GetType().Equals(typeof(DeathState)))
                 {
@@ -79,26 +97,26 @@ public class EnemyController : MonoBehaviour,IpooledObject
                     ChangeState(state);
                 }
             }
-            
+
         }
-    
+
         if (ph.IsDead)
         {
             StartCoroutine(GameOver());
         }
-        if (!isDead && !ph.IsDead && enemyHealth>0)
+        if (!isDead && !ph.IsDead && enemyHealth > 0)
         {
             for (int i = 0; i < states.Count; i++)
             {
-                if (states[i].GetType().Equals(typeof(EnemyChase)))
+                if (states[i].GetType().Equals(typeof(EnemyChase)) && canMove)
                 {
                     EnemyStates state = states[i];
                     ChangeState(state);
                 }
             }
         }
-
     }
+
     public void Chase()
     {
         agent.SetDestination(player.position);
@@ -108,6 +126,7 @@ public class EnemyController : MonoBehaviour,IpooledObject
     public void Death()
     {
         isDead = true;
+        EventTriggers.instance.OnDeathTrigger();
         StartCoroutine(OnDeath());
     }
     private void AttackPlayer()
@@ -122,7 +141,8 @@ public class EnemyController : MonoBehaviour,IpooledObject
     public void TakeDamage(float damage)
     {
         enemyHealth -= damage;
-        enemydamage.SetHealthUI();
+        //ShowDamage(damage);
+        //enemydamage.SetHealthUI();
         if (enemyHealth <= 0)
         {
             for (int i = 0; i < states.Count; i++)
@@ -135,23 +155,36 @@ public class EnemyController : MonoBehaviour,IpooledObject
             }
         }
     }
-
+    //void ShowDamage(float damage)
+    //{
+    //    GameObject x = Instantiate(FloatingDamageText, transform.position, Quaternion.identity, transform);
+    //    x.transform.LookAt(Camera.main.transform);
+    //    x.GetComponent<TextMesh>().text = damage.ToString();
+    //}
     public void KnockBack()
     {
         rb.AddForce(transform.forward * -1 * agent.speed * knockbackforce);
     }
     IEnumerator OnDeath()
     {
+        //explodingSound.Play();
+        AudioSource x = Instantiate(explodingSound, transform.position,Quaternion.identity);
+        x.transform.position = transform.position;
+        x.Play();
         dustTrail.gameObject.SetActive(false);
         canShoot = false;
-        enemydamage.SetHealthUI();
+        //enemydamage.SetHealthUI();
         isDead = true;
 
         agent.enabled = false;
+        CameraShake.Instance.ShakeCamera(explosionIntensity, explosionEffectDuration);
         explosionParticles.transform.position = transform.position;
-        explosionParticles.gameObject.SetActive(true);        
-        yield return new WaitForSeconds(8f);
+        //postParticles.transform.position = transform.position;
+        explosionParticles.gameObject.SetActive(true);
         gameObject.SetActive(false);
+        yield return new WaitForSeconds(5f);
+        Destroy(x);
+
 
     }
     IEnumerator GameOver()
@@ -164,6 +197,7 @@ public class EnemyController : MonoBehaviour,IpooledObject
     IEnumerator Shoot()
     {
         alreadyAttacked = true;
+        shootingSound.Play();
         OnObjectSpawn();
         yield return new WaitForSeconds(timeBetweenAttacks);
         alreadyAttacked = false;
@@ -184,8 +218,16 @@ public class EnemyController : MonoBehaviour,IpooledObject
         currentState.OnEnter();
     }
 
+    
     private void OnDrawGizmos()
     {
         //  Gizmos.DrawSphere(transform.position, attackRange);
+    }
+    IEnumerator spawnEffect()
+    {
+        enemySpawnEffect.gameObject.SetActive(true);
+        yield return new WaitForSeconds(0.5f);
+        enemySpawnEffect.gameObject.SetActive(false);
+        canMove = true;
     }
 }

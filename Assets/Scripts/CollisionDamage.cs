@@ -20,6 +20,8 @@ public class CollisionDamage : MonoBehaviour
     private PlayerHealth playerHealth;
 
     private bool canTakeDamage = true;
+
+    public AudioSource enemyCollisionSound;
     private void Awake()
     {
         //rigidBody = GetComponent<Rigidbody>();
@@ -64,19 +66,21 @@ public class CollisionDamage : MonoBehaviour
             {
                 if (colliders[i].gameObject.CompareTag("Enemy") && canTakeDamage)
                 {
-          
+                    enemyCollisionSound.Play();
+                    PlayerController.Instance.KnockBack();
                     StartCoroutine(damage(collisionWithEnemyDamage, nextCollisionDamageDelay));
                 }
 
                 if (colliders[i].gameObject.CompareTag("Destructible") && canTakeDamage)
                 {
-          
+                    
                     StartCoroutine(damage(collisionWithNonDestructibleDamage, nextCollisionDamageDelay));
                 }
 
                 if (colliders[i].gameObject.CompareTag("NonDestructible") && canTakeDamage)
                 {
-      
+                    enemyCollisionSound.Play();
+                    PlayerController.Instance.KnockBack();
                     StartCoroutine(damage(collisionWithNonDestructibleDamage, nextCollisionDamageOtherDelay));
                 }
             }
@@ -85,7 +89,8 @@ public class CollisionDamage : MonoBehaviour
 
     IEnumerator damage(float damage, float delay)
     {
-
+        
+        CameraShake.Instance.ShakeCamera(2.5f, 0.25f);
         playerHealth.TakeDamage(damage);
         canTakeDamage = false;
         yield return new WaitForSeconds(delay);

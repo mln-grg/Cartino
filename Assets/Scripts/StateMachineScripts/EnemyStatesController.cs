@@ -37,7 +37,7 @@ public class EnemyStatesController : MonoBehaviour, IpooledObject
     private bool isDead = false;
     private float enemyHealth;
 
-
+    
 
     private void Awake()
     {
@@ -105,7 +105,7 @@ public class EnemyStatesController : MonoBehaviour, IpooledObject
     public void TakeDamage(float damage)
     {
         enemyHealth -= damage;
-        enemydamage.SetHealthUI();
+        //enemydamage.SetHealthUI();
         if (enemyHealth <= 0)
         {
             StartCoroutine(OnDeath());
@@ -116,13 +116,16 @@ public class EnemyStatesController : MonoBehaviour, IpooledObject
     {
         dustTrail.gameObject.SetActive(false);
         canShoot = false;
-        enemydamage.SetHealthUI();
+        //enemydamage.SetHealthUI();
         isDead = true;
         agent.enabled = false;
         explosionParticles.transform.position = transform.position;
+        
         explosionParticles.gameObject.SetActive(true);
-        yield return new WaitForSeconds(8f);
         gameObject.SetActive(false);
+        yield return new WaitForSeconds(explosionParticles.main.duration);
+  
+        //yield return new WaitForSeconds(8f);
 
     }
     IEnumerator GameOver()

@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using System.Collections;
 
 public class EnemySpawnerService : MonoSingletonGeneric<EnemySpawnerService>
 {
@@ -9,6 +10,7 @@ public class EnemySpawnerService : MonoSingletonGeneric<EnemySpawnerService>
     private float playerHealth;
 
     ShellPooler shellPooler;
+
     private void Start()
     {
         shellPooler = ShellPooler.GetInstance();
@@ -27,7 +29,11 @@ public class EnemySpawnerService : MonoSingletonGeneric<EnemySpawnerService>
             int spawnPointsIndex = Random.Range(0, spawnPoints.Length);
             Vector3 pos = spawnPoints[spawnPointsIndex].position;
             pos.y += 2;
-            shellPooler.SpawnFromPool("Buggy", pos, spawnPoints[spawnPointsIndex].rotation, Vector3.zero);
+            if(enemiesIndex == 0)
+                shellPooler.SpawnFromPool("Buggy", pos, spawnPoints[spawnPointsIndex].rotation, Vector3.zero);
+            if (enemiesIndex == 0)
+                shellPooler.SpawnFromPool("Heavy", pos, spawnPoints[spawnPointsIndex].rotation, Vector3.zero);
+
             //Instantiate(enemies[enemiesIndex].CarPrefab, pos, spawnPoints[spawnPointsIndex].rotation);
 
         }

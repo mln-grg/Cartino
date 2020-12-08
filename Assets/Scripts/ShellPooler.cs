@@ -46,7 +46,7 @@ public class ShellPooler : MonoSingletonGeneric<ShellPooler>
             rb.transform.rotation = rotation;
             rb.velocity = projectileVelocity;
         }
-        else if(tag == "Buggy") 
+        else if(tag == "Buggy" || tag == "Heavy") 
         {
             objToSpawn.transform.position = position;
             objToSpawn.transform.rotation = rotation;

@@ -11,9 +11,11 @@ public class ShellExplosion : MonoBehaviour
     [SerializeField] private float explosionForce = 1000f;
     [SerializeField] private float explosionRadius = 5f;
 
+    [SerializeField] private float explosionIntensity;
+    [SerializeField] private float explosionEffectDuration;
     private PlayerHealth playerHealth;
-    
 
+    public AudioSource enemyCollisionSound;
     private void OnTriggerEnter(Collider other)
     {
         Collider[] colliders = Physics.OverlapSphere(transform.position, explosionRadius, shouldDestroyMask);
@@ -25,6 +27,7 @@ public class ShellExplosion : MonoBehaviour
 
                 explosionPrefab.Play();
                 explosionAudio.Play();
+                CameraShake.Instance.ShakeCamera(explosionIntensity, explosionAudio.time);
 
                 StartCoroutine(timer());
                 continue;
@@ -32,6 +35,7 @@ public class ShellExplosion : MonoBehaviour
             targetRigidbody.AddExplosionForce(explosionForce, transform.position, explosionRadius);
             if (targetRigidbody.CompareTag("Player"))
             {
+                enemyCollisionSound.Play();
                 playerHealth = FindObjectOfType<PlayerHealth>().GetComponent<PlayerHealth>();
             }
             EnemyController enemyController = targetRigidbody.GetComponent<EnemyController>();
@@ -40,7 +44,7 @@ public class ShellExplosion : MonoBehaviour
             
             if (!playerHealth && enemyController)
             {
-                
+                enemyCollisionSound.Play();
                 enemyController.TakeDamage(damage);
             }
             else if (!enemyController && playerHealth)
@@ -52,6 +56,7 @@ public class ShellExplosion : MonoBehaviour
 
             explosionPrefab.Play();
             explosionAudio.Play();
+            CameraShake.Instance.ShakeCamera(explosionIntensity, explosionEffectDuration);
  
             StartCoroutine(timer());
         }

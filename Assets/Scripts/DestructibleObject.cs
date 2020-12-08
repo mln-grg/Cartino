@@ -8,12 +8,14 @@ public class DestructibleObject : MonoBehaviour,Destructible
     [SerializeField] private Vector3 offset;
     [SerializeField] private float explosionForce;
     [SerializeField] private float explosionRadius;
+    private ContactPoint cpos;
     private void OnCollisionEnter(Collision collision)
     {
         if(collision.gameObject.tag == "Player" || collision.gameObject.tag == "Shell" || collision.gameObject.tag == "PlayerSphere")
         {
             IDestructible();
         }
+        cpos = collision.GetContact(0);
     }
     public void IDestructible()
     {
@@ -25,6 +27,7 @@ public class DestructibleObject : MonoBehaviour,Destructible
             foreach(var rb in rgbds)
             {
                 rb.AddExplosionForce(explosionForce, transform.position, explosionRadius);
+                //rb.AddExplosionForce(explosionForce, transform.position, explosionRadius);
             }
         }
         Destroy(this.gameObject);

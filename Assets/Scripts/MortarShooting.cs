@@ -15,6 +15,12 @@ public class MortarShooting : MonoBehaviour,IpooledObject
     private float chargeSpeed;
     private bool fired;
     private ShellPooler shellPooler;
+    [SerializeField] private ParticleSystem mortarMuzzle;
+    private PlayerHealth ph;
+
+    [SerializeField] GameObject bomb;
+    public AudioSource shootingSound;
+    public AudioSource bombShootingSound;
     private void OnEnable()
     {
         currentLaunchForce = minLaunchForce;
@@ -23,37 +29,61 @@ public class MortarShooting : MonoBehaviour,IpooledObject
     {
         chargeSpeed = (maxLaunchForce - minLaunchForce) / maxChargeTime;
         shellPooler = ShellPooler.GetInstance();
+        ph = GetComponent<PlayerHealth>();
     }
 
     private void Update()
     {
-        if(currentLaunchForce >= maxLaunchForce && !fired)
+        if (ph.IsDead == false)
         {
-            currentLaunchForce = maxLaunchForce;
-            Fire();
-        }
-        else if (Input.GetMouseButtonDown(1))
-        {
-            fired = false;
-            currentLaunchForce = minLaunchForce;
-        }
-        else if (Input.GetMouseButton(1) && !fired)
-        {
-            currentLaunchForce += chargeSpeed * Time.deltaTime;
-        }
-        else if (Input.GetMouseButtonUp(1) && !fired)
-        {
-            Fire();
+            if (currentLaunchForce >= maxLaunchForce && !fired)
+            {
+                currentLaunchForce = maxLaunchForce;
+                Fire();
+            }
+            else if (Input.GetMouseButtonDown(1))
+            {
+                fired = false;
+                currentLaunchForce = minLaunchForce;
+            }
+            else if (Input.GetMouseButton(1) && !fired)
+            {
+                currentLaunchForce += chargeSpeed * Time.deltaTime;
+            }
+            else if (Input.GetMouseButtonUp(1) && !fired)
+            {
+                Fire();
+            }
+            else if (Input.GetMouseButton(2) &&!fired)
+            {
+                Bomb();
+            }
+            else if (Input.GetMouseButtonUp(2))
+            {
+                fired = false;
+            }
+            
         }
     }
 
     public void Fire()
     {
+        EventTriggers.instance.FiredShells();
+        PlayerController.Instance.ForwardPush();
+        shootingSound.Play();
         fired = true;
         OnObjectSpawn();
+        mortarMuzzle.Play();
         //Rigidbody shellInstance = Instantiate(shell, fireTransform.position, fireTransform.rotation) as Rigidbody;
         //shellInstance.velocity = currentLaunchForce * fireTransform.forward;
         currentLaunchForce = minLaunchForce;
+    }
+    public void Bomb()
+    {
+        bombShootingSound.Play();
+        fired = true;
+        GameObject x = Instantiate(bomb, fireTransform.position, fireTransform.rotation);
+        x.GetComponent<Rigidbody>().velocity =  0.25f* fireTransform.forward;
     }
     public void OnObjectSpawn()
     {
