@@ -21,7 +21,7 @@ public class EnemyDamage : MonoBehaviour
     private bool canTakeDamage = true;
     private float currentHealth;
     private float health;
-    public GameObject collisionEffect;
+    
 
     private void OnEnable()
     {
@@ -64,7 +64,7 @@ public class EnemyDamage : MonoBehaviour
             }
             if (collision.gameObject.CompareTag("Player") && canTakeDamage)
             {
-                Pow(collision);
+                
                 
                 StartCoroutine(damage(collisionWithPlayerDamage, nextCollisionDamageDelay));
             }
@@ -86,7 +86,7 @@ public class EnemyDamage : MonoBehaviour
         enemyController.TakeDamage(damage);
         canTakeDamage = false;
         yield return new WaitForSeconds(delay);
-        collisionEffect.SetActive(false);
+        //collisionEffect.SetActive(false);
         canTakeDamage = true;
     }
 
@@ -94,17 +94,9 @@ public class EnemyDamage : MonoBehaviour
     IEnumerator Disablewait()
     {
         yield return new WaitForSeconds(1f);
-        collisionEffect.SetActive(false);
+        //collisionEffect.SetActive(false);
     }
 
-    public void Pow(Collision collision)
-    {
-        collisionEffect.gameObject.transform.position = collision.contacts[0].point;
-        collisionEffect.SetActive(true);
-    }
-    public void Pow(Vector3 pos)
-    {
-        collisionEffect.gameObject.transform.position = pos;
-        collisionEffect.SetActive(true);
-    }
+  
+    
 }

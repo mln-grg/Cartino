@@ -4,6 +4,7 @@ using System.Collections;
 public class PlayerHealth : MonoBehaviour
 {
     [SerializeField] private float health = 100f;
+    public static PlayerHealth instance;
     [SerializeField] private Slider slider;
     [SerializeField] private Image fillImage;
     [SerializeField] private Color fullHealthColor = Color.green;
@@ -20,8 +21,10 @@ public class PlayerHealth : MonoBehaviour
     private bool isDead;
     public bool IsDead { get { return isDead; } }
     public AudioSource explosionAudio;
+    public GameObject gameOverScreen;
     private void Awake()
     {
+        instance = this; 
         pc = GetComponent<PlayerController>();
         explosionParticles = Instantiate(explosionPrefab).GetComponent<ParticleSystem>();
         explosionParticles.gameObject.SetActive(false);
@@ -63,7 +66,8 @@ public class PlayerHealth : MonoBehaviour
     {
         AudioSource x = Instantiate(explosionAudio, transform.position, Quaternion.identity);
         gameObject.GetComponent<PlayerInputs>().enabled = false;
-       
+        gameOverScreen.SetActive(true);
+        GameOver.instance.onGameOver();
         isDead = true;
         dustTrail.SetActive(false);
         //yield return new WaitForSeconds(1f);    

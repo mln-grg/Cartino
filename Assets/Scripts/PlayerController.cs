@@ -1,4 +1,4 @@
-﻿using System.Collections;
+﻿    using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -25,6 +25,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float knockBackTime;
     public float carMaxSpeed = 32;
     public float carCurrentSpeed;
+    public bool gameStarted = false;
     private void Awake()
     {
         Instance = this;
@@ -39,7 +40,8 @@ public class PlayerController : MonoBehaviour
     }
     private void Update()
     {
-        carCurrentSpeed = (rb.velocity.magnitude * 3.6f) / carMaxSpeed;
+        if(playerHealth.IsDead == false)
+            carCurrentSpeed = (rb.velocity.magnitude * 3.6f) / carMaxSpeed;
        
         if (playerHealth.IsDead == false)
         {
@@ -73,7 +75,7 @@ public class PlayerController : MonoBehaviour
     }
     private void FixedUpdate()
     {
-        if(playerHealth.IsDead == false && !knocking)
+        if(playerHealth.IsDead == false && !knocking && gameStarted)
             rb.AddForce(transform.forward * speedInput);
     }
 

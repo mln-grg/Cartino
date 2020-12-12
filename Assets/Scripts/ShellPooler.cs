@@ -17,7 +17,7 @@ public class ShellPooler : MonoSingletonGeneric<ShellPooler>
 
     private void Start()
     {
-        
+        Application.targetFrameRate = 60;
         poolDictionary = new Dictionary<string, Queue<GameObject>>();
         foreach(Pool pool in pools)
         {

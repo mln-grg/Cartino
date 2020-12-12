@@ -68,17 +68,19 @@ public class CollisionDamage : MonoBehaviour
                 {
                     enemyCollisionSound.Play();
                     PlayerController.Instance.KnockBack();
+
                     StartCoroutine(damage(collisionWithEnemyDamage, nextCollisionDamageDelay));
                 }
 
                 if (colliders[i].gameObject.CompareTag("Destructible") && canTakeDamage)
                 {
-                    
+
                     StartCoroutine(damage(collisionWithNonDestructibleDamage, nextCollisionDamageDelay));
                 }
 
                 if (colliders[i].gameObject.CompareTag("NonDestructible") && canTakeDamage)
                 {
+
                     enemyCollisionSound.Play();
                     PlayerController.Instance.KnockBack();
                     StartCoroutine(damage(collisionWithNonDestructibleDamage, nextCollisionDamageOtherDelay));

@@ -1,6 +1,5 @@
 ﻿using System;
 using UnityEngine;
-using UnityStandardAssets.CrossPlatformInput;
 public class PlayerInputs : MonoBehaviour
 {
     private float VerticalInput;
@@ -9,11 +8,17 @@ public class PlayerInputs : MonoBehaviour
     private float HorizontalInput;
     public float horizontalinput { get { return HorizontalInput; } }
     
-    [SerializeField] private float accelerometerSensitivity;
-    
+    public float accelerometerSensitivity;
+
+    public static PlayerInputs instance;
+    private void Awake()
+    {
+        instance = this;
+    }
+
     void FixedUpdate()
     {
-        VerticalInput = CrossPlatformInputManager.GetAxis("Vertical");//Input.GetAxis("Vertical");//joystick.Vertical;
+        //VerticalInput = CrossPlatformInputManager.GetAxis("Vertical");//Input.GetAxis("Vertical");//joystick.Vertical;
         if (Input.GetAxis("Horizontal")!=0)
             HorizontalInput = Input.GetAxis("Horizontal");//Input.acceleration.x * accelerometerSensitivity; //Input.GetAxis("Horizontal");//Input.acceleration.x * accelerometerSensitivity; //joystick.Horizontal;
         else

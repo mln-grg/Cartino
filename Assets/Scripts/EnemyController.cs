@@ -49,7 +49,8 @@ public class EnemyController : MonoBehaviour,IpooledObject
     public AudioSource explodingSound;
     //public GameObject FloatingDamageText;
     //public Vector3 damagePosition;
-
+    public GameObject collisionEffect;
+    public AudioSource[] PowEffect;
     private void OnEnable()
     {
         rb = GetComponent<Rigidbody>();
@@ -126,7 +127,8 @@ public class EnemyController : MonoBehaviour,IpooledObject
     public void Death()
     {
         isDead = true;
-        EventTriggers.instance.OnDeathTrigger();
+        EnemiesKilled.instance.IncreaseCount();
+        //EventTriggers.instance.OnDeathTrigger();
         StartCoroutine(OnDeath());
     }
     private void AttackPlayer()
@@ -140,6 +142,9 @@ public class EnemyController : MonoBehaviour,IpooledObject
 
     public void TakeDamage(float damage)
     {
+        Pow(transform.position);
+        int index = UnityEngine.Random.Range(0, PowEffect.Length);
+        PowEffect[index].Play();
         enemyHealth -= damage;
         //ShowDamage(damage);
         //enemydamage.SetHealthUI();
@@ -161,6 +166,23 @@ public class EnemyController : MonoBehaviour,IpooledObject
     //    x.transform.LookAt(Camera.main.transform);
     //    x.GetComponent<TextMesh>().text = damage.ToString();
     //}
+
+    //public void Pow(Collision collision)
+    //{
+    //    collisionEffect.gameObject.transform.position = collision.contacts[0].point;
+    //    collisionEffect.SetActive(true);
+    //}
+    public void Pow(Vector3 pos)
+    {
+        collisionEffect.gameObject.transform.position = pos;
+        collisionEffect.SetActive(true);
+        StartCoroutine(wait());
+    }
+    IEnumerator wait()
+    {
+        yield return new WaitForSeconds(0.5f);
+        collisionEffect.SetActive(false);
+    }
     public void KnockBack()
     {
         rb.AddForce(transform.forward * -1 * agent.speed * knockbackforce);
